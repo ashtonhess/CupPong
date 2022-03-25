@@ -24,6 +24,17 @@ bool loginUser(string userName, string password){
 
 int main(int argc, char*argv[]){
 
+    /* Rough template...?
+        if(connected to server){
+            try to login...
+            if(loggedIn){
+                find match...
+                if(match found){
+                    start game...
+                }
+            }
+        }
+    */
 
     char userInput[50];//max input size 50.
 
