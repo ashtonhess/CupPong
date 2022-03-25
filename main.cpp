@@ -14,17 +14,9 @@ using namespace std;
 #include <sstream>
 
 void printWelcome();
-
 //This function splits a string by a delimiter and places each piece in a string vector.
-vector<string> split (const string &inputString, char delim) {
-    stringstream stringStream (inputString);
-    string piece;
-    vector<string> result;
-    while (getline (stringStream, piece, delim)) {
-        result.push_back (piece);
-    }
-    return result;
-}
+vector<string> split (const string &inputString, char delim);
+
 
 bool loginUser(string userName, string password){
     return true;
@@ -96,6 +88,18 @@ int main(int argc, char*argv[]){
     //game.printGame();
 
     return 0;
+}
+
+
+
+vector<string> split (const string &inputString, char delim) {
+    stringstream stringStream (inputString);
+    string piece;
+    vector<string> result;
+    while (getline (stringStream, piece, delim)) {
+        result.push_back (piece);
+    }
+    return result;
 }
 void printWelcome(){
     cout<<" ____      ____ ________ _____      ______   ___  ____    ____ ________  \n"<<
