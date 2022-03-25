@@ -12,9 +12,12 @@ using namespace std;
 class Game {
 
 public:
-    Cup cups[10];
+    Cup homeCups[10];
+    Cup awayCups[10];
 
-    void printCups();
+    void printCupsHome();
+    void printCupsAway();
+    void printGame();
 
 };
 

@@ -14,7 +14,8 @@ public:
         active=true;
     }
     bool active;
-    void printCup();
+    void printCupAway();
+    void printCupHome();
 };
 
 

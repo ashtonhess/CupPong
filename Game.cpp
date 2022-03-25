@@ -4,26 +4,40 @@
 
 #include "Game.h"
 
-//1
-//2
-//3
-//4
 
-void Game::printCups() {
+void Game::printGame(){
+    printCupsHome();
+    cout<<endl<<"\t\t-------------"<<endl<<endl;
+    printCupsHome();
+}
+//Prints cup tower for AWAY team.
+void Game::printCupsAway() {
+    int c = 0;
+    int offsetX = 22;
+    for (int i = 4; i > 0; --i) {
+        int s = offsetX - (i * 2);//Note: Good offset formula.
+        for (int k = 0; k < s; ++k) {
+            cout << " ";
+        }
+        for (int j = 0; j < i; ++j) {
+            homeCups[c].printCupAway();
+            c++;
+        }
+        cout << endl;
+    }
+}
+
+//Prints cup tower for HOME team.
+void Game::printCupsHome() {
     int c=0;
-    int offsetX=7;
+    int offsetX=20;
     for (int i = 0; i < 4; ++i) {
-
         int s=offsetX-(i*2);//Note: Good offset formula.
-        //changes the offset of the cups
-//        if(s==4){
-//            s--;
-//        }
         for (int k = 0; k < s; ++k) {
             cout<<" ";
         }
         for (int j = 0; j <= i; ++j) {
-            cups[c].printCup();
+            homeCups[c].printCupHome();
             c++;
         }
         cout<<endl;

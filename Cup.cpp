@@ -3,8 +3,15 @@
 //
 
 #include "Cup.h"
-
-void Cup::printCup() {
+// ‾
+void Cup::printCupAway() {
+    if (this->active){
+        cout<<" /‾\\";
+    }else{
+        cout<<"\t";
+    }
+}
+void Cup::printCupHome() {
     if (this->active){
         cout<<" \\_/";
     }else{

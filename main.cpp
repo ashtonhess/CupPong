@@ -13,10 +13,12 @@ using namespace std;
 
 int main(int argc, char*argv[]){
 
+
     Game game = Game();
-    //game.cups[0].active=false;
-    //game.cups[9].active=false;
-    game.printCups();
+    game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
+    game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
+    game.printGame();
+
 
 
 
