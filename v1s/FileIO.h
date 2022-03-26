@@ -25,6 +25,7 @@ public:
     string getFilename();
     void setFilename(string filename);
 
+    void addUserToFile(User user);
     vector<User> readUsers();
 
 

@@ -15,6 +15,14 @@ string FileIO::getFilename(){
 void FileIO::setFilename(string filename){
     filename_=filename;
 }
+void FileIO::addUserToFile(User user){
+    string userString;
+    userString="("+user.getUsername()+","+" "+user.getPassword()+")";
+    ofstream outFile;
+    outFile.open(filename_, std::ios_base::app);
+    outFile<<endl<<userString;
+}
+
 vector<User> FileIO::readUsers(){
     vector<User> errorVector;
     std::ifstream ifs;
@@ -33,13 +41,13 @@ vector<User> FileIO::readUsers(){
             data.erase(remove(data.begin(), data.end(), ' '), data.end());
             //cout<<"Data after erase: "<<data<<endl;
             stringstream ss(data);
-            string userID;
-            getline(ss, userID, ',');
+            string username;
+            getline(ss, username, ',');
             string password;
             getline(ss, password, ')');
             //cout<<"userID: "<<userID<<endl;
             //cout<<"password: "<<password<<endl;
-            User *newUser = new User(userID, password);
+            User *newUser = new User(username, password);
             returnVector.push_back(*newUser);
         }
         return returnVector;

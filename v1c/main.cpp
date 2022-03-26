@@ -19,12 +19,13 @@ void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
 
-
 bool loginUser(string userName, string password){
     return true;
 }
 
 int main(int argc, char*argv[]){
+
+    printWelcome();
 
     /* Rough template...?
         if(connected to server){
@@ -54,17 +55,13 @@ int main(int argc, char*argv[]){
     if(serverConnected){
         bool loggedIn=false;
         while(!loggedIn){
-
             cout<<"> Please login or signup."<<endl;
             cout<<"> Type 'help' for user manual."<<endl;
             cout<<"> ";
             cin.getline(userInput,50,'\n');
             string stringUserInput = userInput;
             vector<string> delimitVector;
-
             delimitVector = split(stringUserInput,' ');
-
-
             switch (delimitVector.size()) {
                 case 1:
                     if(delimitVector.at(0)=="help"){
@@ -85,15 +82,12 @@ int main(int argc, char*argv[]){
                                 cout<<"> login failed. Incorrect username or password."<<endl;
                             }
                         }
-
                     }
                     break;
                 default:
                     cout<<"Default case."<<endl;
                     break;
-
             }
-
         }
         //Game game = Game();
         //game.awayCups[1].active=false;
@@ -152,7 +146,7 @@ void printWelcome(){
         "\\ `.___.'\\  \\ \\__/ /   _| |_      _| |_   \\  `-'  _| |_\\   |\\ `.___]  |  \n"<<
         " `.____ .'   `.__.'   |_____|    |_____|   `.___.|_____|\\____`._____.'   \n"<<
         "                                                                         ";
-    //sleep(3);
+    sleep(3);
     cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 }

@@ -54,6 +54,12 @@ int Network::login(string username, string password){
 }
 
 int Network::newUser(string username, string password){
+    if (login(username, password)==1 || login(username,password)==2){
+        return 0;
+    }else{
+        User*newUser = new User(username, password);
+        Singleton::getInstance()->getFile().addUserToFile(*newUser);
 
-    return 0;
+        return 1;
+    }
 }
