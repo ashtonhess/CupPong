@@ -12,4 +12,7 @@ int main(int argc, char*argv[]){
     Singleton::getInstance()->setFile(*f);
     Singleton*singler = Singleton::getInstance();
     cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+
+
+
 }

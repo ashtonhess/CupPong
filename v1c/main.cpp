@@ -13,6 +13,8 @@ using namespace std;
 #include<vector>
 #include <sstream>
 
+int keypress();
+
 void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
@@ -36,6 +38,16 @@ int main(int argc, char*argv[]){
         }
     */
 
+    //KEY LISTENER
+//    bool active=true;
+//    do {
+//        int key = keypress();
+////std::cout << (char)key << std::endl;
+//        if((char)key=='k'){//setting 'k' as the kill switch.
+//            active=false;
+//        }
+//    } while (active);
+
     char userInput[50];//max input size 50.
 
     bool serverConnected=true;
@@ -49,16 +61,20 @@ int main(int argc, char*argv[]){
             cin.getline(userInput,50,'\n');
             string stringUserInput = userInput;
             vector<string> delimitVector;
+
             delimitVector = split(stringUserInput,' ');
+
 
             switch (delimitVector.size()) {
                 case 1:
                     if(delimitVector.at(0)=="help"){
                         cout<<"> Help message here."<<endl;
                     }
+                    break;
                 case 3:
-                    //cout<<"case 3"<<endl;
+                    cout<<"case 3"<<endl;
                     if (delimitVector.at(0)=="login") {
+
                         if(delimitVector.at(1).size()>10||delimitVector.at(2).size()>10){
                             cout<<"> login failed. Username or password input too long. 10 character max."<<endl;
                         }else{
@@ -71,13 +87,18 @@ int main(int argc, char*argv[]){
                         }
 
                     }
+                    break;
                 default:
                     cout<<"Default case."<<endl;
+                    break;
 
             }
 
         }
-
+        //Game game = Game();
+        //game.awayCups[1].active=false;
+        //game.homeCups[4].active=false;
+        //game.printGame();
     }
 
     //GAME LOOP
@@ -93,10 +114,10 @@ int main(int argc, char*argv[]){
         }
     }
 
-    Game game = Game();
-    game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
-    //game.printGame();
+
+    //game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
+    //game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
+
 
     return 0;
 }
@@ -137,7 +158,7 @@ void printWelcome(){
 }
 
 //KEY LISTENER FUNCTION
-/*
+
 int keypress() {
     system ("/bin/stty raw");
     int c;
@@ -147,7 +168,7 @@ int keypress() {
     system ("/bin/stty cooked");
     return c;
 }
-*/
+
 //KEY LISTENER MAIN
 /*
 bool active=false;
