@@ -7,11 +7,17 @@
 
 #include <iostream>
 using namespace std;
-#include <string>
 #include <stdlib.h>
 #include <stdio.h>
+
+#include <string>
+#include<vector>
+
 #include <sys/socket.h>
-#include<netinet/in.h>//sockaddr_in
+#include <netinet/in.h>//sockaddr_in
+
+#include "User.h"
+#include "FileIO.h"
 
 #define SERVER_PORT 11328
 #define MAX_PENDING 5

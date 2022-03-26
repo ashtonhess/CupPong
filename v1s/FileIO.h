@@ -9,6 +9,12 @@
 using namespace std;
 #include <fstream>
 #include <string>
+#include <vector>
+#include <sstream>
+
+
+
+#include "User.h"
 
 class FileIO {
 private:
@@ -19,6 +25,7 @@ public:
     string getFilename();
     void setFilename(string filename);
 
+    vector<User> readUsers();
 
 
 };

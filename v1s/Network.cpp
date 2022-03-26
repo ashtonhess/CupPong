@@ -40,12 +40,13 @@ bool Network::connect(){
 
 int Network::login(string username, string password){
     vector<User> allUsersVec;
-    allUsersVec=readUsersFromFile("users.txt");
+
+    allUsersVec=FileIO().readUsers();
     for (auto it = begin (allUsersVec); it != end (allUsersVec); ++it) {
-        if(it->getUserID()==userID&&it->getPassword()==password){
+        if(it->getUsername()==username&&it->getPassword()==password){
             //cout<<it->getUserID()<<" login."<<endl;//---------------------------------------------------------------NEEDED--------------------------------------------------------------------------
             return 1;
-        }else if(it->getUserID()==userID&&it->getPassword()!=password){
+        }else if(it->getUsername()==username&&it->getPassword()!=password){
             return 2;
         }
     }
@@ -54,4 +55,5 @@ int Network::login(string username, string password){
 
 int Network::newUser(string username, string password){
 
+    return 0;
 }
