@@ -4,17 +4,17 @@ using namespace std;
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+
 #include <string>
 #include "Game.h"
 #include "Cup.h"
 #include<vector>
 #include <sstream>
 
+//Returns ASCII int value of key pressed.
 int keypress();
-
+//Prints welcome message at beginning of prog. Time until clear can be changed in the
+//sleep function within.
 void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
@@ -152,7 +152,6 @@ void printWelcome(){
 }
 
 //KEY LISTENER FUNCTION
-
 int keypress() {
     system ("/bin/stty raw");
     int c;
