@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Singleton.h"
+#include "Network.h"
 
 
 int main(int argc, char*argv[]){
@@ -13,6 +14,8 @@ int main(int argc, char*argv[]){
     Singleton*singler = Singleton::getInstance();
     cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
 
+    Network networkObj = Network();
+    cout<<"Network connect result: "<<networkObj.connect()<<endl;
 
 
 }
