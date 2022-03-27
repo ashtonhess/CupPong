@@ -11,10 +11,12 @@ using namespace std;
 #include <stdio.h>
 
 #include <string>
+#include <cstring>
 #include<vector>
 
 #include <sys/socket.h>
 #include <netinet/in.h>//sockaddr_in
+#include <arpa/inet.h>
 
 #define SERVER_PORT 11328
 #define MAX_LINE 256
@@ -23,9 +25,16 @@ using namespace std;
 class Network {
 private:
     int sock=0;
-    char* addy="127.0.0.1";//setting addy to the local loopback IP addy
+    string addy="127.0.0.1";//setting addy to the local loopback IP addy
+    const char *addyChar=addy.c_str();
     struct sockaddr_in sockAddy;
 public:
+    bool connect();
+    bool sendMsg(string msg);
+    int login(string username, string password);
+    int signup(string username, string password);
+
+
 };
 
 

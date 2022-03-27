@@ -8,6 +8,7 @@ using namespace std;
 #include <string>
 #include "Game.h"
 #include "Cup.h"
+#include "User.h"
 #include<vector>
 #include <sstream>
 
@@ -19,9 +20,7 @@ void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
 
-bool loginUser(string userName, string password){
-    return true;
-}
+
 
 int main(int argc, char*argv[]){
 
@@ -55,8 +54,8 @@ int main(int argc, char*argv[]){
     if(serverConnected){
         bool loggedIn=false;
         while(!loggedIn){
-            cout<<"> Please login or signup."<<endl;
-            cout<<"> Type 'help' for user manual."<<endl;
+            cout<<"> Please login or signup. (h for help)"<<endl;
+            //cout<<"> Type 'help' for user manual."<<endl;
             cout<<"> ";
             cin.getline(userInput,50,'\n');
             string stringUserInput = userInput;
@@ -64,18 +63,18 @@ int main(int argc, char*argv[]){
             delimitVector = split(stringUserInput,' ');
             switch (delimitVector.size()) {
                 case 1:
-                    if(delimitVector.at(0)=="help"){
+                    if(delimitVector.at(0)=="h"){
                         cout<<"> Help message here."<<endl;
                     }
                     break;
                 case 3:
-                    cout<<"case 3"<<endl;
-                    if (delimitVector.at(0)=="login") {
-
+                    //cout<<"case 3"<<endl;
+                    if (delimitVector.at(0)=="login"){
                         if(delimitVector.at(1).size()>10||delimitVector.at(2).size()>10){
                             cout<<"> login failed. Username or password input too long. 10 character max."<<endl;
                         }else{
-                            if (loginUser(delimitVector.at(1), delimitVector.at(2))){
+                            User *userLoggingIn = new User();
+                            if (userLoggingIn->loginUser(delimitVector.at(1), delimitVector.at(2))){
                                 cout<<"> login success."<<endl;
                                 loggedIn=true;
                             }else{
@@ -89,6 +88,42 @@ int main(int argc, char*argv[]){
                     break;
             }
         }
+        //USER IS LOGGED IN HERE
+        while(loggedIn){
+            cout<<"> ";
+            cin.getline(userInput,50,'\n');
+            string stringUserInput = userInput;
+            vector<string> delimitVector;
+            delimitVector = split(stringUserInput,' ');
+            switch (delimitVector.size()) {
+                case 1:
+                    if(delimitVector.at(0)=="logout"){
+                        loggedIn=false;
+                        break;
+                    }else if(delimitVector.at(0)=="h"){
+                        cout<<"> Help message here."<<endl;
+                        break;
+                    }else if(delimitVector.at(0)=="quickplay"){
+                        Game game = Game();
+                        game.printGame();
+                        break;
+                    }
+
+                default: cout<<"> Type 'h' for user manual."<<endl;;
+            }
+
+            //Game game = Game();
+            //game.printGame();
+
+
+
+
+        }
+
+
+
+
+
         //Game game = Game();
         //game.awayCups[1].active=false;
         //game.homeCups[4].active=false;
