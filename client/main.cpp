@@ -20,12 +20,8 @@ void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
 
-
-
 int main(int argc, char*argv[]){
-
     printWelcome();
-
     /* Rough template...?
         if(connected to server){
             try to login...
@@ -37,7 +33,6 @@ int main(int argc, char*argv[]){
             }
         }
     */
-
     //KEY LISTENER
 //    bool active=true;
 //    do {
@@ -49,7 +44,6 @@ int main(int argc, char*argv[]){
 //    } while (active);
 
     char userInput[50];//max input size 50.
-
     bool serverConnected=true;
     if(serverConnected){
         bool loggedIn=false;
@@ -108,46 +102,15 @@ int main(int argc, char*argv[]){
                         game.printGame();
                         break;
                     }
-
                 default: cout<<"> Type 'h' for user manual."<<endl;;
             }
-
             //Game game = Game();
             //game.printGame();
-
-
-
-
         }
 
-
-
-
-
-        //Game game = Game();
-        //game.awayCups[1].active=false;
-        //game.homeCups[4].active=false;
-        //game.printGame();
     }
-
-    //GAME LOOP
-    bool isPlaying=true;
-    while(isPlaying){
-        int x,y;
-        x=0;
-        y=0;
-        if (x-y==1){
-
-        }else{
-            isPlaying=false;
-        }
-    }
-
-
     //game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
     //game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
-
-
     return 0;
 }
 
@@ -181,24 +144,25 @@ void printWelcome(){
         "\\ `.___.'\\  \\ \\__/ /   _| |_      _| |_   \\  `-'  _| |_\\   |\\ `.___]  |  \n"<<
         " `.____ .'   `.__.'   |_____|    |_____|   `.___.|_____|\\____`._____.'   \n"<<
         "                                                                         ";
-    sleep(3);
+    sleep(1);
     cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 }
 
-//KEY LISTENER FUNCTION
-int keypress() {
-    system ("/bin/stty raw");
-    int c;
-    system("/bin/stty -echo");
-    c = getc(stdin);
-    system("/bin/stty echo");
-    system ("/bin/stty cooked");
-    return c;
-}
-
-//KEY LISTENER MAIN
+//KEY LISTENER
 /*
+//KEY LISTENER FUNCTION
+//int keypress() {
+//    system ("/bin/stty raw");
+//    int c;
+//    system("/bin/stty -echo");
+//    c = getc(stdin);
+//    system("/bin/stty echo");
+//    system ("/bin/stty cooked");
+//    return c;
+//}
+//KEY LISTENER MAIN
+
 bool active=false;
 do {
 int key = keypress();
@@ -208,7 +172,6 @@ active=false;
 }
 } while (active);
 */
-
 
 //Main for thread testing.
 /*
