@@ -12,6 +12,7 @@ using namespace std;
 
 #include <string>
 #include<vector>
+#include <algorithm>
 
 #include <sys/socket.h>
 #include <netinet/in.h>//sockaddr_in
