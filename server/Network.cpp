@@ -20,8 +20,7 @@ bool Network::connect(){
     //Binding socket
     //Must use scope resolution operator '::' here to call bind() from the socket import,
     // since I'm using the std namespace. This is because std::bind() also exists.
-    socklen_t len = sizeof(addy);
-    if (::bind(serverFD, (struct sockaddr *)&addy, len) < 0 ){
+    if (::bind(serverFD, (struct sockaddr *)&addy, sizeof(addy)) < 0 ){
         cout<<"> Error: binding socket."<<endl;
         return false;
     }
@@ -32,7 +31,8 @@ bool Network::connect(){
     }
 
     //accepting and storing a socket connection
-    if ((currentSocket = accept(serverFD, (struct sockaddr *) &addy, (socklen_t *) &addy)) < 0) {
+    int size = sizeof(addy);
+    if ((currentSocket = accept(serverFD, (struct sockaddr *) &addy, (socklen_t *) &size)) < 0) {
         cout<<"> Error: accepting the socket."<<endl;
         return false;
     }else{
