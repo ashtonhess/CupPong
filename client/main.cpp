@@ -45,6 +45,8 @@ int main(int argc, char*argv[]){
 
     char userInput[50];//max input size 50.
     bool serverConnected=true;
+    Network* network = new Network();
+    serverConnected=network->connect();
     if(serverConnected){
         bool loggedIn=false;
         while(!loggedIn){

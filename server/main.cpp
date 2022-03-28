@@ -15,7 +15,15 @@ int main(int argc, char*argv[]){
     cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
 
     Network networkObj = Network();
-    cout<<"Network connect result: "<<networkObj.connect()<<endl;
+    //1 is connected
+    //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
 
+    if(networkObj.connect()){
+        cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
+        cout<<"Network is connected"<<endl;
+    }
+    else{
+        cout<<"Network is not connected"<<endl;
+    }
 
 }

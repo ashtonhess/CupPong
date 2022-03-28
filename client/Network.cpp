@@ -16,6 +16,7 @@ bool Network::connect(){
         cout<<"> Error: Invalid address."<<endl;
         return false;
     }
+    //Connecting to the server, :: is used to specify that connect will be used from import
     if (::connect(sock, (struct sockaddr *)&sockAddy, sizeof(sockAddy)) < 0){
         cout<<"> Error: Connection Failed."<<endl;
         return false;
