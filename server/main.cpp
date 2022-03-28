@@ -17,10 +17,12 @@ int main(int argc, char*argv[]){
     Network networkObj = Network();
     //1 is connected
     //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
-
     if(networkObj.connect()){
-        cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
+        //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
         cout<<"Network is connected"<<endl;
+
+
+
     }
     else{
         cout<<"Network is not connected"<<endl;

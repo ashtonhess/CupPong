@@ -29,11 +29,13 @@ bool Network::connect(){
         cout<<"> Error: listening on socket."<<endl;
         return false;
     }
+
     //accepting and storing a socket connection
     if ((currentSocket = accept(serverFD, (struct sockaddr *) &addy, (socklen_t *) &addy)) < 0) {
         cout<<"> Error: accepting the socket."<<endl;
         return false;
     }else{
+        cout<<"> Socket connection has been accepted."<<endl;
         return true;
     }
 }
