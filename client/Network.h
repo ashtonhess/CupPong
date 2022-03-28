@@ -1,4 +1,4 @@
-//
+//CLIENT
 // Created by Ashton Hess on 3/26/22.
 //
 
@@ -33,7 +33,7 @@ public:
     bool sendMsg(string msg);
     int login(string username, string password);
     int signup(string username, string password);
-
+    string recvMsg();
 
 };
 

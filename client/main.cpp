@@ -67,13 +67,20 @@ int main(int argc, char*argv[]){
                         if(delimitVector.at(1).size()>10||delimitVector.at(2).size()>10){
                             cout<<"> login failed. Username or password input too long. 10 character max."<<endl;
                         }else{
-                            User *userLoggingIn = new User();
-                            if (userLoggingIn->loginUser(delimitVector.at(1), delimitVector.at(2))){
-                                cout<<"> login success."<<endl;
+                            Network *network = new Network();
+                            if(network->login(delimitVector.at(1),delimitVector.at(2))==1){
                                 loggedIn=true;
+                                cout<<"> login successful."<<endl;
                             }else{
-                                cout<<"> login failed. Incorrect username or password."<<endl;
+                                cout<<"> login failed."<<endl;
                             }
+//                            User *userLoggingIn = new User();
+//                            if (userLoggingIn->loginUser(delimitVector.at(1), delimitVector.at(2))){
+//                                cout<<"> login success."<<endl;
+//                                loggedIn=true;
+//                            }else{
+//                                cout<<"> login failed. Incorrect username or password."<<endl;
+//                            }
                         }
                     }
                     break;

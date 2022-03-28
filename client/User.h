@@ -8,24 +8,33 @@
 using namespace std;
 #include<string>
 
+#include "Network.h"
+
 class User {
 private:
-    string username_;
-    int wins;
-    int losses;
+    //bool loggedIn=false;
+    string username_="";
+    int wins=0;
+    int losses=0;
 
 public:
     User(){}
-    User(string username){
-        username_=username;
-        wins=0;
-        losses=0;
-
+    User(string username_, int wins, int losses){
+        this->username_=username_;
+        this->wins=wins;
+        this->losses=losses;
     }
+//    User(string username){
+//        loggedIn = false;
+//        username_=username;
+//        wins=0;
+//        losses=0;
+//
+//    }
     void setUsername(string username);
     string getUsername();
 
-    bool loginUser(string username, string password);
+    //bool loginUser(string username, string password);
 
 };
 

@@ -15,6 +15,7 @@ public:
     Cup homeCups[10];
     Cup awayCups[10];
 
+
     void printCupsHome();
     void printCupsAway();
     void printGame();
