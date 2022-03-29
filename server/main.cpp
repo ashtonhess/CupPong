@@ -15,17 +15,38 @@ int main(int argc, char*argv[]){
     cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
 
     Network networkObj = Network();
+    bool isActive=false;
     //1 is connected
     //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
     if(networkObj.connect()){
-        //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
-        cout<<"Network is connected"<<endl;
+        isActive=true;
+        int sock;
+        while(isActive){
+            sock=networkObj.acceptConnection();
+            if (sock==-1){
+                cout<<"> Error: Network::acceptConnection().";
+            }else{
+                //add this socket to list for matchmaking...
+
+                //once match is found, add both users into a thread of a game instance...
+
+            }
 
 
-
-    }
-    else{
+            isActive=false;
+        }
+    }else{
         cout<<"Network is not connected"<<endl;
     }
+//    bool isConnected = false;
+//    while(!isConnected){
+//        isConnected=networkObj.connect();
+//    }
+//    while(isConnected){
+//
+//
+//
+//        isConnected=false;
+//    }
 
 }
