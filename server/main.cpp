@@ -7,7 +7,8 @@
 #include "Singleton.h"
 #include "Network.h"
 
-//disabling inf loop inspection for this file in CLion. Perm fix.
+
+//disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
@@ -58,6 +59,7 @@ int main(int argc, char*argv[]){
             while(true){
 
 
+
             }
 
             //isActive=false;
@@ -66,6 +68,14 @@ int main(int argc, char*argv[]){
     }else{
         cout<<"Network is not connected"<<endl;
     }
+
+}
+
+#pragma clang diagnostic pop
+
+
+
+
 //    bool isConnected = false;
 //    while(!isConnected){
 //        isConnected=networkObj.connect();
@@ -76,8 +86,3 @@ int main(int argc, char*argv[]){
 //
 //        isConnected=false;
 //    }
-
-
-}
-
-#pragma clang diagnostic pop
