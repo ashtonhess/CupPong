@@ -17,6 +17,7 @@ int main(int argc, char*argv[]){
 
     Network networkObj = Network();
     bool isActive=false;
+
     //1 is connected
     //cout<<"Network connect result: "<<(bool)networkObj.connect()<<endl;
     if(networkObj.connect()){
@@ -25,6 +26,8 @@ int main(int argc, char*argv[]){
         while(isActive){
             bool acceptingPair=true;
             int numOfConnections=0;
+            int s1;
+            int s2;
             while (acceptingPair){
                 sock=networkObj.acceptConnection();
                 if (sock==-1){
@@ -35,11 +38,19 @@ int main(int argc, char*argv[]){
                     isActive=false;//THIS ELSE IF IS TO MAKE INF LOOP HIGHLIGHT GO AWAY.
                 }else{
                     //add this socket to list for matchmaking...
+
                     numOfConnections++;
                     if(numOfConnections==2){
+                        s2=sock;
+                        cout<<"s2 "<<s2<<endl;
                         acceptingPair=false;
+                    }else{
+                        s1=sock;
+                        cout<<"s1: "<<s1<<endl;
                     }
                     networkObj.sendMsg("Welcome to Cup Pong!\n");
+
+
 
                     //once match is found, add both users into a thread of a game instance...
 
@@ -64,5 +75,6 @@ int main(int argc, char*argv[]){
 //
 //        isConnected=false;
 //    }
+
 
 }

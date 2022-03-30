@@ -26,7 +26,6 @@ using namespace std;
 
 class Network {
 private:
-
     //File descriptor for stocket.
     int serverFD;
     //stores the accepted socket connection
