@@ -76,14 +76,14 @@ int main(int argc, char*argv[]){
                     //cout<<"case 3"<<endl;
                     if (delimitVector.at(0)=="login"){
                         if(delimitVector.at(1).size()>10||delimitVector.at(2).size()>10){
-                            cout<<"> login failed. Username or password input too long. 10 character max."<<endl;
+                            cout<<"> login failed. Username or password input too long. 10 character max. main()"<<endl;
                         }else{
                             Network *network = new Network();
                             if(network->login(delimitVector.at(1),delimitVector.at(2))==1){
                                 loggedIn=true;
-                                cout<<"> login successful."<<endl;
+                                cout<<"> login successful. main()"<<endl;
                             }else{
-                                cout<<"> login failed."<<endl;
+                                cout<<"> login failed. main()."<<endl;
                             }
 //                            User *userLoggingIn = new User();
 //                            if (userLoggingIn->loginUser(delimitVector.at(1), delimitVector.at(2))){

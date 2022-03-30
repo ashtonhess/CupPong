@@ -39,7 +39,7 @@ int Network::login(string username, string password){
             return 1;
         }
         else if (response == "LOGIN_FAILURE"){
-            cout<<"> Login Failed."<<endl;
+            cout<<"> Login Failed. response=='LOGIN_FAILURE'."<<endl;
             return 0;
         }
         else{

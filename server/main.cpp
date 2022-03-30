@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <pthread.h>
 #include "Singleton.h"
 #include "Network.h"
 
@@ -28,7 +29,10 @@ int main(int argc, char*argv[]){
                 sock=networkObj.acceptConnection();
                 if (sock==-1){
                     cout<<"> Error: Network::acceptConnection().";
-                    //return -1;//returning on connection error.
+                    //return -1;//returning
+
+                }else if (sock==-2){
+                    isActive=false;//THIS ELSE IF IS TO MAKE INF LOOP HIGHLIGHT GO AWAY.
                 }else{
                     //add this socket to list for matchmaking...
                     numOfConnections++;
@@ -44,8 +48,9 @@ int main(int argc, char*argv[]){
 
 
 
-            isActive=false;
+            //isActive=false;
         }
+
     }else{
         cout<<"Network is not connected"<<endl;
     }
