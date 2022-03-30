@@ -22,19 +22,29 @@ int main(int argc, char*argv[]){
         isActive=true;
         int sock;
         while(isActive){
-            sock=networkObj.acceptConnection();
-            if (sock==-1){
-                cout<<"> Error: Network::acceptConnection().";
-                return -1;//returning on connection error.
-            }else{
-                //add this socket to list for matchmaking...
+            bool acceptingPair=true;
+            int numOfConnections=0;
+            while (acceptingPair){
+                sock=networkObj.acceptConnection();
+                if (sock==-1){
+                    cout<<"> Error: Network::acceptConnection().";
+                    //return -1;//returning on connection error.
+                }else{
+                    //add this socket to list for matchmaking...
+                    numOfConnections++;
+                    if(numOfConnections==2){
+                        acceptingPair=false;
+                    }
+                    networkObj.sendMsg("Welcome to Cup Pong!\n");
 
-                //once match is found, add both users into a thread of a game instance...
+                    //once match is found, add both users into a thread of a game instance...
 
+                }
             }
 
 
-            //isActive=false;
+
+            isActive=false;
         }
     }else{
         cout<<"Network is not connected"<<endl;

@@ -31,15 +31,6 @@ bool Network::connect() {
     }
     return true;
 }
-//    //accepting and storing a socket connection
-//    int size = sizeof(addy);
-//    if ((currentSocket = accept(serverFD, (struct sockaddr *) &addy, (socklen_t *) &size)) < 0) {
-//        cout<<"> Error: accepting the socket."<<endl;
-//        return false;
-//    }else{
-//        cout<<"> Socket connection has been accepted."<<endl;
-//        return true;
-//    }
 
 int Network::acceptConnection() {
         //accepting and storing a socket connection
@@ -48,7 +39,7 @@ int Network::acceptConnection() {
         cout<<"> Error: accepting the socket."<<endl;
         return -1;
     }else{
-        cout<<"> Socket connection has been accepted."<<endl;
+        cout<<"> Socket connection has been accepted: "<<currentSocket<<endl;
         return currentSocket;
     }
 }
@@ -76,3 +67,20 @@ int Network::newUser(string username, string password){
         return 1;
     }
 }
+bool Network::sendMsg(string msg){
+    if(send(currentSocket, msg.c_str(), msg.length(), 0) < 0){
+        cout<<"> Error: Message sending failed."<<endl;
+        return false;
+    }
+    return true;
+}
+
+//    //accepting and storing a socket connection
+//    int size = sizeof(addy);
+//    if ((currentSocket = accept(serverFD, (struct sockaddr *) &addy, (socklen_t *) &size)) < 0) {
+//        cout<<"> Error: accepting the socket."<<endl;
+//        return false;
+//    }else{
+//        cout<<"> Socket connection has been accepted."<<endl;
+//        return true;
+//    }

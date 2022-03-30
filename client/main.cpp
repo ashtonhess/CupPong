@@ -48,6 +48,15 @@ int main(int argc, char*argv[]){
     Network* network = new Network();
     serverConnected=network->connect();
     if(serverConnected){
+        bool receivedMsgBool=false;
+        while(!receivedMsgBool){
+            string rMsg= network->recvMsg();
+            if(rMsg!=""){
+                cout<<"Received Msg: "<<rMsg<<endl;
+                receivedMsgBool=true;
+            }
+        }
+
         bool loggedIn=false;
         while(!loggedIn){
             cout<<"> Please login or signup. (h for help)"<<endl;
@@ -87,7 +96,7 @@ int main(int argc, char*argv[]){
                     }
                     break;
                 default:
-                    cout<<"Default case."<<endl;
+                    cout<<"Invalid command. (h for help)"<<endl;
                     break;
             }
         }
