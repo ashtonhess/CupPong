@@ -25,6 +25,7 @@ int main(int argc, char*argv[]){
             sock=networkObj.acceptConnection();
             if (sock==-1){
                 cout<<"> Error: Network::acceptConnection().";
+                return -1;//returning on connection error.
             }else{
                 //add this socket to list for matchmaking...
 

@@ -26,7 +26,8 @@ class Network {
 private:
     int sock=0;
     //string addy="127.0.0.1";//setting addy to the local loopback IP addy
-    string addy="192.168.15.118";
+    //string addy="192.168.15.118";
+    string addy="35.129.56.107";
     const char *addyChar=addy.c_str();
     struct sockaddr_in sockAddy;
 public:
