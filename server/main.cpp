@@ -34,7 +34,7 @@ int main(int argc, char*argv[]){
             }
 
 
-            isActive=false;
+            //isActive=false;
         }
     }else{
         cout<<"Network is not connected"<<endl;
