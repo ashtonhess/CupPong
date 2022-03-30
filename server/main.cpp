@@ -7,6 +7,7 @@
 #include "Singleton.h"
 #include "Network.h"
 
+//disabling inf loop inspection for this file in CLion. Perm fix.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
@@ -36,7 +37,7 @@ int main(int argc, char*argv[]){
                     //return -1;//returning
                 }else if (sock==-2){
                     isActive=false;//THIS ELSE IF IS TO MAKE INF LOOP HIGHLIGHT GO AWAY IN CLION. NOT ACTUALLY USED.
-                                    //ended up disabling inf loop inspection for this file in CLion. Perm fix.
+                                    //ended up disabling inf loop inspection for this file in CLion. Perm fix. This is not needed anymore.
                 }else{
                     //add this socket to list for matchmaking...
                     numOfConnections++;
