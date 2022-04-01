@@ -29,6 +29,7 @@ bool Network::connect() {
         cout << "> Error: listening on socket." << endl;
         return false;
     }
+    cout<<" > Network is connected."<<endl;
     return true;
 }
 
