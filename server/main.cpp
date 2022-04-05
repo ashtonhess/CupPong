@@ -3,25 +3,70 @@
 //
 
 #include <iostream>
+#include<unistd.h>
 #include <pthread.h>
 #include "Singleton.h"
 #include "Network.h"
+
 
 
 //disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
+
+void *func(void*arg){
+    cout<<"This is a thread running func()"<<endl;
+    bool boolV=true;
+    while (true){
+        Network network = Network();
+        if(boolV){
+            if(network.connect()){
+                cout<<"Network connected."<<endl;
+                boolV=false;
+            }
+        }
+        int sock;
+        sock=network.acceptConnection();
+        cout<<"sock accepted: "<<sock<<endl;
+        sleep(3);
+    }
+    pthread_exit(NULL);
+}
+
 int main(int argc, char*argv[]){
     FileIO *f = new FileIO();
     f->setFilename("users.txt");
     Singleton::getInstance()->setFile(*f);
     Singleton*singler = Singleton::getInstance();
     cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+    singler->getFile().readUsers();
 
-    Network networkObj = Network();
+
+    vector<pthread_t> threads;
+    pthread_t t1;
+    int res;
+    //Network networkObj = Network();
+    //if (networkObj.connect()) {
+        res=pthread_create(&t1, NULL, &func, NULL);
+        if (res!=0){
+            cout<<"> Error creating thread."<<endl;
+        }
+
+        cout<<"After thread"<<endl;
+        pthread_exit(NULL);
+    //}else{
+    //    cout<<"> Error connecting to network."<<endl;
+    //}
+
+//    Network networkObj = Network();
+//    if (networkObj.connect()) {
+//
+//    }
+
+
+    /*
     bool isActive=false;
-
     if(networkObj.connect()){
         isActive=true;
         int sock;
@@ -59,7 +104,7 @@ int main(int argc, char*argv[]){
             while(true){
 
 
-
+                break;
             }
 
             //isActive=false;
@@ -68,6 +113,7 @@ int main(int argc, char*argv[]){
     }else{
         cout<<"Network is not connected"<<endl;
     }
+     */
 
 }
 

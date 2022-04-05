@@ -1,4 +1,4 @@
-//
+//SERVER
 // Created by Ashton Hess on 3/25/22.
 //
 
@@ -13,6 +13,7 @@ using namespace std;
 #include <string>
 #include<vector>
 #include <algorithm>
+#include <cstring>
 
 #include <sys/socket.h>
 #include <netinet/in.h>//sockaddr_in
