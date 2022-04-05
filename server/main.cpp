@@ -26,15 +26,11 @@ void *func(void*arg){
                 boolV=false;
             }
         }
-
         int sock;
         sock=network.acceptConnection();
         cout<<"sock accepted: "<<sock<<endl;
         sleep(3);
-
-
     }
-
     pthread_exit(NULL);
 }
 

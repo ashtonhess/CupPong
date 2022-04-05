@@ -5,6 +5,15 @@
 #include "Network.h"
 
 bool Network::connect(){
+
+    //This function resolves the hostname into an ip address. So, instead of using a hardcoded IP,
+    //which could change and fail, we will now always get the current IP for the domain name. This along with
+    //dynamic DNS should ensure server is always found.
+    if(hostname_to_ip(const_cast<char*>(addyChar), ip)==1){
+        cout<<"> Error: Resolving hostname."<<endl;
+        return false;
+    }
+
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         cout<<"> Error: Socket initialization."<<endl;
         return false;
@@ -12,7 +21,7 @@ bool Network::connect(){
     sockAddy.sin_family = AF_INET;
     sockAddy.sin_port = htons(SERVER_PORT);
     //Converting IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, addyChar, &sockAddy.sin_addr)<=0){
+    if(inet_pton(AF_INET, ip, &sockAddy.sin_addr)<=0){
         cout<<"> Error: Invalid address."<<endl;
         return false;
     }
@@ -82,4 +91,26 @@ string Network::recvMsg(){
         return "";
     }
     return buffer;
+}
+int Network::hostname_to_ip(char *hostname , char *ip){
+    struct addrinfo hints;
+    struct addrinfo *serverInfo;
+    struct addrinfo *addrPtr;
+    struct sockaddr_in *h;
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC; //AF_INET6 to force IPv6, AF_INET for IPv4, and use AF_UNSPEC to not force...
+    hints.ai_socktype = SOCK_STREAM;
+    int res;
+    if ((res = getaddrinfo( hostname , "http" , &hints , &serverInfo))!=0){
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(res));
+        return 1;
+    }
+    // loop through results...
+    for(addrPtr = serverInfo; addrPtr != NULL; addrPtr = addrPtr->ai_next){
+        //cout<<"for loop"<<endl;
+        h = (struct sockaddr_in *) addrPtr->ai_addr;
+        strcpy(ip , inet_ntoa( h->sin_addr ) );
+    }
+    freeaddrinfo(serverInfo); //free mem for serverInfo, not needed anymore.
+    return 0;
 }
