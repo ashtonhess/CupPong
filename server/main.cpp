@@ -1,6 +1,6 @@
-//
+// SERVER
 // Created by Ashton Hess on 3/25/22.
-//
+// SERVER
 
 #include <iostream>
 #include<unistd.h>
@@ -8,16 +8,20 @@
 #include "Singleton.h"
 #include "Network.h"
 
-
-
 //disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
 
+void *gameFunc(void*arg){
+    cout<<"Game func"<<endl;
+    return NULL;
+}
+
 void *connectListener(void*arg){
     cout<<"This is a thread running func()"<<endl;
     bool boolV=true;
+    vector<pthread_t*> threadV;
     int sock1;
     int sock2;
     while (true){
@@ -55,7 +59,20 @@ void *connectListener(void*arg){
         //start game thread with sock1 and sock2.
         cout<<"2 sockets have been accepted."<<endl;
 
+        //SEGFAULTS.
+
+        pthread_t *threadPtr = (pthread_t*)malloc(sizeof(pthread_t));
+        int res;
+        res=pthread_create(threadPtr, NULL, &gameFunc, NULL);
+        if (res!=0){
+            cout<<"> Error creating thread."<<endl;
+        }else{
+            threadV.push_back(threadPtr);
+        }
+//        cout<<"After thread"<<endl;
+//        pthread_exit(NULL);
         connections=0;
+        //threadPtr=NULL;
     }
     pthread_exit(NULL);
 }

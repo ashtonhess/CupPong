@@ -1,10 +1,10 @@
+//CLIENT
 #include <iostream>
 using namespace std;
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
-
 #include <string>
 #include "Game.h"
 #include "Cup.h"
@@ -20,13 +20,8 @@ void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
 
-
+//CLIENT
 int main(int argc, char*argv[]){
-
-
-
-
-
     printWelcome();
     /* Rough template...?
         if(connected to server){
