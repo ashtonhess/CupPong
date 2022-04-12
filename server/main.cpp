@@ -20,7 +20,7 @@ void *connectListener(void*arg){
     bool boolV=true;
     while (true){
         Network network = Network();
-        if(boolV){
+        if(boolV){//if the server is not connected yet (first time calling this), connect to server...
             if(network.connect()){
                 cout<<"Network connected."<<endl;
                 boolV=false;

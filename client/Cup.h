@@ -6,6 +6,9 @@
 #define V1_CUP_H
 #include <iostream>
 using namespace std;
+//This allows for underlining strings.
+#define UNDERLINE "\033[4m"
+#define CLOSEUNDERLINE "\033[0m"
 
 class Cup {
 
@@ -19,6 +22,7 @@ public:
         this->active=active;
     }
     bool active;
+    //int cupNum;
     //prints cups on other side of board
     void printCupAway();
     //prints cups on same side of board

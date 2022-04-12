@@ -20,6 +20,7 @@ void printWelcome();
 //This function splits a string by a delimiter and places each piece in a string vector.
 vector<string> split (const string &inputString, char delim);
 
+
 int main(int argc, char*argv[]){
     Game game = Game();
     game.printGame();
@@ -64,6 +65,9 @@ int main(int argc, char*argv[]){
     game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
     game.printGame();
     cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+
+
+
 
     printWelcome();
     /* Rough template...?

@@ -20,7 +20,7 @@ void Game::printCupsAway() {
             cout << " ";
         }
         for (int j = 0; j < i; ++j) {
-            homeCups[(c-9)*-1].printCupHome();//Change this to printCupAway to change style of cup
+            homeCups[(c-9)*-1].printCupAway();//Change this to printCupAway to change style of cup
             c++;
         }
         cout << endl;
