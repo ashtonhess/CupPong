@@ -37,7 +37,7 @@ public:
     Network(){}
     bool connect();
     int acceptConnection();
-    bool sendMsg(string msg);
+    bool sendMsg(int sock, string msg);
     int login(string username, string password);
     int newUser(string username, string password);
 

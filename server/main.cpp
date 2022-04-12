@@ -16,6 +16,16 @@
 
 void *gameFunc(void*arg){
     cout<<"Game func"<<endl;
+    cout<<"first sock: "<<((pair<int,int>*)arg)->first<<endl;
+    cout<<"second sock: "<<((pair<int,int>*)arg)->second<<endl;
+    int sock1=((pair<int,int>*)arg)->first;
+    int sock2=((pair<int,int>*)arg)->second;
+
+    Network *networkObj=new Network;
+//    networkObj.sendMsg("Welcome to Cup Pong!\n");
+    networkObj->sendMsg(sock1, "S1: Welcome to Cup Pong!\n");
+    networkObj->sendMsg(sock2, "S2: Welcome to Cup Pong!\n");
+
     return NULL;
 }
 
@@ -50,7 +60,7 @@ void *connectListener(void*arg){
             if(connections==1) {
                 sock2 = network.acceptConnection();
                 if(sock2==-1){
-                    cout<<"error accepting sock1"<<endl;
+                    cout<<"error accepting sock2"<<endl;
                 }else{
                     cout<<"sock2 accepted: "<<sock2<<endl;
                     connections++;
@@ -61,10 +71,12 @@ void *connectListener(void*arg){
         cout<<"2 sockets have been accepted."<<endl;
 
         //SEGFAULTS.
-
+        pair<int,int> *sockPair = (pair<int,int>*)malloc(sizeof(pair<int,int>*));
+        sockPair->first = sock1;
+        sockPair->second = sock2;
         pthread_t *threadPtr = (pthread_t*)malloc(sizeof(pthread_t));
         int res;
-        res=pthread_create(threadPtr, NULL, &gameFunc, NULL);
+        res=pthread_create(threadPtr, NULL, &gameFunc, (void*)sockPair);
         if (res!=0){
             cout<<"> Error creating thread."<<endl;
         }else{

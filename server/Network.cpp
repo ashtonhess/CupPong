@@ -68,8 +68,8 @@ int Network::newUser(string username, string password){
         return 1;
     }
 }
-bool Network::sendMsg(string msg){
-    if(send(currentSocket, msg.c_str(), msg.length(), 0) < 0){
+bool Network::sendMsg(int sock, string msg){
+    if(send(sock, msg.c_str(), msg.length(), 0) < 0){
         cout<<"> Error: Message sending failed."<<endl;
         return false;
     }
