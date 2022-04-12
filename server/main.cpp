@@ -12,7 +12,6 @@
 // add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
-//comment
 
 void *gameFunc(void*arg){
     cout<<"Game func"<<endl;
@@ -23,14 +22,13 @@ void *gameFunc(void*arg){
 
     Network *networkObj=new Network;
 //    networkObj.sendMsg("Welcome to Cup Pong!\n");
-    networkObj->sendMsg(sock1, "S1: Welcome to Cup Pong!\n");
-    networkObj->sendMsg(sock2, "S2: Welcome to Cup Pong!\n");
+    networkObj->sendMsg(sock1, "s1: Welcome to Cup Pong!\n");
+    networkObj->sendMsg(sock2, "s2: Welcome to Cup Pong!\n");
 
     return NULL;
 }
 
 void *connectListener(void*arg){
-    cout<<"This is a thread running func()"<<endl;
     bool boolV=true;
     vector<pthread_t*> threadV;
     int sock1;
@@ -39,53 +37,50 @@ void *connectListener(void*arg){
         Network network = Network();
         if(boolV){//if the server is not connected yet (first time calling this), connect to server...
             if(network.connect()){
-                cout<<"Network connected."<<endl;
+//                cout<<"Network connected."<<endl;
                 boolV=false;
             }else{
-                cout<<"Error connecting to network."<<endl;
+                cout<<"> Error connecting to network."<<endl;
             }
         }
         int connections=0;
         while(connections!=2){
+            //accept first connection, store in sock1
             if(connections==0){
                 sock1=network.acceptConnection();
                 if(sock1==-1){
-                    cout<<"error accepting sock1"<<endl;
+                    cout<<"> Error accepting sock1."<<endl;
                 }else{
-                    cout<<"sock1 accepted: "<<sock1<<endl;
+                    cout<<"> sock1 accepted: "<<sock1<<endl;
                     connections++;
                 }
-
             }
+            //accept second connection, store in sock2
             if(connections==1) {
                 sock2 = network.acceptConnection();
                 if(sock2==-1){
-                    cout<<"error accepting sock2"<<endl;
+                    cout<<"> Error accepting sock2"<<endl;
                 }else{
-                    cout<<"sock2 accepted: "<<sock2<<endl;
+                    cout<<"> sock2 accepted: "<<sock2<<endl;
                     connections++;
                 }
             }
         }
-        //start game thread with sock1 and sock2.
-        cout<<"2 sockets have been accepted."<<endl;
-
-        //SEGFAULTS.
+        cout<<"> Creating game with socks: "<<sock1<<" and "<<sock2<<"."<<endl;
+        //store both accepted socks in pair to pass to gameThread.
         pair<int,int> *sockPair = (pair<int,int>*)malloc(sizeof(pair<int,int>*));
         sockPair->first = sock1;
         sockPair->second = sock2;
         pthread_t *threadPtr = (pthread_t*)malloc(sizeof(pthread_t));
         int res;
+        //create game thread with sock1 and sock2.
         res=pthread_create(threadPtr, NULL, &gameFunc, (void*)sockPair);
         if (res!=0){
             cout<<"> Error creating thread."<<endl;
         }else{
             threadV.push_back(threadPtr);
         }
-//        cout<<"After thread"<<endl;
-//        pthread_exit(NULL);
         connections=0;
-        //threadPtr=NULL;
     }
     pthread_exit(NULL);
 }
@@ -95,7 +90,7 @@ int main(int argc, char*argv[]){
     f->setFilename("users.txt");
     Singleton::getInstance()->setFile(*f);
     Singleton*singler = Singleton::getInstance();
-    cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
     singler->getFile().readUsers();
 
 
@@ -108,10 +103,15 @@ int main(int argc, char*argv[]){
         if (res!=0){
             cout<<"> Error creating thread."<<endl;
         }
-
-        cout<<"After thread"<<endl;
         pthread_exit(NULL);
-    //}else{
+}
+
+#pragma clang diagnostic pop
+
+
+
+
+//}else{
     //    cout<<"> Error connecting to network."<<endl;
     //}
 
@@ -171,9 +171,6 @@ int main(int argc, char*argv[]){
     }
      */
 
-}
-
-#pragma clang diagnostic pop
 
 
 
