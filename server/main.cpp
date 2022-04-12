@@ -9,6 +9,7 @@
 #include "Network.h"
 
 //disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
+// add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
