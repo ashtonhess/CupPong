@@ -22,49 +22,7 @@ vector<string> split (const string &inputString, char delim);
 
 
 int main(int argc, char*argv[]){
-    Game game = Game();
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[2].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[0].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[4].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[1].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[6].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[2].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[8].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[3].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[9].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[4].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[1].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[5].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[3].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[6].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[5].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[7].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[7].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[8].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
-    game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
-    game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
-    game.printGame();
-    cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+
 
 
 
@@ -170,16 +128,10 @@ int main(int argc, char*argv[]){
                     }
                 default: cout<<"> Type 'h' for user manual."<<endl;;
             }
-
         }
-
     }
-
     return 0;
 }
-
-
-
 vector<string> split (const string &inputString, char delim) {
     stringstream stringStream (inputString);
     string piece;
@@ -212,6 +164,50 @@ void printWelcome(){
     cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 }
+//GAME BOARD PRINT TESTING-------------------------------------------------------------
+//Game game = Game();
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[2].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[0].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[4].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[1].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[6].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[2].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[8].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[3].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[9].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[4].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[1].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[5].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[3].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[6].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[5].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[7].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[7].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[8].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
+//game.homeCups[0].active=false;// 0 based, homeCups[0]=POINT
+//game.awayCups[9].active=false;// 0 based, awayCups[9]=POINT
+//game.printGame();
+//cout<<endl<<endl<<endl<<">>>>>>>>>>"<<endl;
 
 //KEY LISTENER
 /*
