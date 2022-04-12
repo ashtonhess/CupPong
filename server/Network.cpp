@@ -18,21 +18,6 @@ bool Network::connect() {
     addy.sin_addr.s_addr = INADDR_ANY;
     addy.sin_port = htons(SERVER_PORT);//host byte order->network byte order
 
-/* Testing- to resolve host name to ip... (DNS)
-
-    //if ((status = getaddrinfo(argv[1], NULL, &hints, &res)) != 0) {
-    char *hostname = "cuppong.hessdevelopments.com";
-    char ip[100];
-    struct addrinfo hints, *servinfo;
-    int status;
-    if ((status = getaddrinfo(hostname, "11328", &hints, &servinfo)) != 0) {
-        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
-        return false;
-    }
-    strcpy(ip, inet_ntoa(addy.sin_addr));
-    printf("%s resolved to %s" , hostname , ip);
-*/
-
     //Binding socket
     //Must use scope resolution operator '::' here to call bind() from the socket import,
     // since I'm using the std namespace. This is because std::bind() also exists.
@@ -90,6 +75,23 @@ bool Network::sendMsg(string msg){
     }
     return true;
 }
+
+
+
+/* Testing- to resolve host name to ip... (DNS)
+
+    //if ((status = getaddrinfo(argv[1], NULL, &hints, &res)) != 0) {
+    char *hostname = "cuppong.hessdevelopments.com";
+    char ip[100];
+    struct addrinfo hints, *servinfo;
+    int status;
+    if ((status = getaddrinfo(hostname, "11328", &hints, &servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
+        return false;
+    }
+    strcpy(ip, inet_ntoa(addy.sin_addr));
+    printf("%s resolved to %s" , hostname , ip);
+*/
 
 //    //accepting and storing a socket connection
 //    int size = sizeof(addy);

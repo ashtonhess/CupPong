@@ -40,7 +40,7 @@ public:
     bool sendMsg(string msg);
     int login(string username, string password);
     int signup(string username, string password);
-    int hostname_to_ip(char *hostname , char *ip);
+    int hostnameToIP(char *hostname , char *ip);
     string recvMsg();
 
 };

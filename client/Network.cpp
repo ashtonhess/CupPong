@@ -4,15 +4,18 @@
 
 #include "Network.h"
 
+
+
 bool Network::connect(){
 
     //This function resolves the hostname into an ip address. So, instead of using a hardcoded IP,
     //which could change and fail, we will now always get the current IP for the domain name. This along with
     //dynamic DNS should ensure server is always found.
-    if(hostname_to_ip(const_cast<char*>(addyChar), ip)==1){
+    if(hostnameToIP(const_cast<char*>(addyChar), ip)==1){
         cout<<"> Error: Resolving hostname."<<endl;
         return false;
     }
+    //cout<<ip<<endl;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         cout<<"> Error: Socket initialization."<<endl;
@@ -92,7 +95,7 @@ string Network::recvMsg(){
     }
     return buffer;
 }
-int Network::hostname_to_ip(char *hostname , char *ip){
+int Network::hostnameToIP(char *hostname , char *ip){
     struct addrinfo hints;
     struct addrinfo *serverInfo;
     struct addrinfo *addrPtr;

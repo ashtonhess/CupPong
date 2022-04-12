@@ -15,7 +15,7 @@
 #pragma ide diagnostic ignored "EndlessLoop"
 //comment
 
-void *func(void*arg){
+void *connectListener(void*arg){
     cout<<"This is a thread running func()"<<endl;
     bool boolV=true;
     while (true){
@@ -24,6 +24,8 @@ void *func(void*arg){
             if(network.connect()){
                 cout<<"Network connected."<<endl;
                 boolV=false;
+            }else{
+                cout<<"Error connecting to network."<<endl;
             }
         }
         int sock;
@@ -48,7 +50,7 @@ int main(int argc, char*argv[]){
     int res;
     //Network networkObj = Network();
     //if (networkObj.connect()) {
-        res=pthread_create(&t1, NULL, &func, NULL);
+        res=pthread_create(&t1, NULL, &connectListener, NULL);
         if (res!=0){
             cout<<"> Error creating thread."<<endl;
         }

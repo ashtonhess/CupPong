@@ -8,13 +8,13 @@ void Cup::printCupAway() {
     if (this->active){
         cout<<" /‾\\";
     }else{
-        cout<<"\t";
+        cout<<"     ";
     }
 }
 void Cup::printCupHome() {
     if (this->active){
         cout<<" \\_/";
     }else{
-        cout<<"\t";
+        cout<<"     ";
     }
 }
