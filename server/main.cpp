@@ -18,6 +18,8 @@
 void *connectListener(void*arg){
     cout<<"This is a thread running func()"<<endl;
     bool boolV=true;
+    int sock1;
+    int sock2;
     while (true){
         Network network = Network();
         if(boolV){//if the server is not connected yet (first time calling this), connect to server...
@@ -28,10 +30,32 @@ void *connectListener(void*arg){
                 cout<<"Error connecting to network."<<endl;
             }
         }
-        int sock;
-        sock=network.acceptConnection();
-        cout<<"sock accepted: "<<sock<<endl;
-        sleep(3);
+        int connections=0;
+        while(connections!=2){
+            if(connections==0){
+                sock1=network.acceptConnection();
+                if(sock1==-1){
+                    cout<<"error accepting sock1"<<endl;
+                }else{
+                    cout<<"sock1 accepted: "<<sock1<<endl;
+                    connections++;
+                }
+
+            }
+            if(connections==1) {
+                sock2 = network.acceptConnection();
+                if(sock2==-1){
+                    cout<<"error accepting sock1"<<endl;
+                }else{
+                    cout<<"sock2 accepted: "<<sock2<<endl;
+                    connections++;
+                }
+            }
+        }
+        //start game thread with sock1 and sock2.
+        cout<<"2 sockets have been accepted."<<endl;
+
+        connections=0;
     }
     pthread_exit(NULL);
 }
