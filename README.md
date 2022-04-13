@@ -9,7 +9,7 @@ Created by Ashton Hess.
 
 # Server
 ## Hardware and OS
-The server will run on a Dell Poweredge Ubuntu server. 
+The server runs on a Dell Poweredge Ubuntu server. 
 Ububtu release 20.04
 ## Networking
 ### Dynamic DNS
