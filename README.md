@@ -6,6 +6,7 @@ C++ Project.
 Created by Ashton Hess.
 
 # Client
+The client program will automatically connect to the central server hosted at CupPong.HessDevelopments.com. Matchmaking will be handled automatically and the server will insert you in a game against another connected player after connecting.
 ## Quickstart
 ### Required Software
 1. apt & apt-get package managers
