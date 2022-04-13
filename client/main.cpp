@@ -68,6 +68,7 @@ int main(int argc, char*argv[]) {
         randNum2 = (rand() % 4 + 1);//generates a random number from 1-4
         for (int i = 0; i < 9; ++i) {
             if (i == 0) {
+                system("clear");
                 printLetterLine(randNum2);
                 cout<<"|........................................................................................|"<<endl;
                 cout<<"|........................................................................................|"<<endl;
