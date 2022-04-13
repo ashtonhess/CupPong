@@ -1,4 +1,4 @@
-//
+//CLIENT
 // Created by ahess on 4/13/22.
 //
 
@@ -14,7 +14,9 @@ int KeyboardHero::play(){
     //chrono::time_point<chrono::system_clock> end;
     start=chrono::system_clock::now();
     //Clock is not exact because of while loop execution time.
-    while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now()-start).count()/1000<10){
+    //Runs game for 12 seconds... Through testing i found this to be a good time for a max score of 9(ish) if perfectly played.
+    //Having max score of 9 is really good->if you play perfectly you have a 90% chance to make cup. Should never be 100% for realism...
+    while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now()-start).count()/1000<12){
         //myBool=false;
         //cout<<endl<<endl<<chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - start).count()/1000<<endl<<endl;
         randNum2 = (rand() % 4 + 1);//generates a random number from 1-4
@@ -26,7 +28,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -37,7 +39,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -50,7 +52,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -63,7 +65,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -76,7 +78,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -89,7 +91,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -102,7 +104,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -113,7 +115,7 @@ int KeyboardHero::play(){
                 printLetterLine(randNum2);
                 printEmptyLine();
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -123,7 +125,7 @@ int KeyboardHero::play(){
                 }
                 printLetterLine(randNum2);
                 cout<<endl;
-                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+                printScoreLine(scoreMsg, score);
 
                 chrono::time_point<chrono::system_clock> startKeyListenTime;
                 startKeyListenTime=chrono::system_clock::now();
@@ -145,7 +147,7 @@ int KeyboardHero::play(){
                             score++;
                             killPressed=true;
                         }else{
-                            scoreMsg="Did not enter '"+to_string((char)key)+"' in time!";
+                            scoreMsg="Did not enter '"+to_string((char)key)+"' in time! Speed it up!";
                             //cout<<"Did not enter key within time limit"<<endl;
                         }
                     }else{
@@ -180,6 +182,10 @@ void KeyboardHero::printLetterLine(int letter){
 void KeyboardHero::printEmptyLine(){
     cout<<"|........................................................................................|"<<endl;
 }
+void KeyboardHero::printScoreLine(string scoreMsg, int currentScore){
+    cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl<<endl<<"\t\t\t\t\t\t\t\t"<<"Current score: "<<currentScore<<endl;
+
+}
 
 int KeyboardHero::keypress() {
     system ("/bin/stty raw");
@@ -194,10 +200,63 @@ int KeyboardHero::keypress() {
 
 
 
+//KEY LISTENER
+/*
+//KEY LISTENER FUNCTION
+//int keypress() {
+//    system ("/bin/stty raw");
+//    int c;
+//    system("/bin/stty -echo");
+//    c = getc(stdin);
+//    system("/bin/stty echo");
+//    system ("/bin/stty cooked");
+//    return c;
+//}
+//KEY LISTENER MAIN
 
+bool active=false;
+do {
+int key = keypress();
+//std::cout << (char)key << std::endl;
+if((char)key=='k'){//setting 'k' as the kill switch.
+active=false;
+}
+} while (active);
+*/
 
 //Original code from main:
-
+//Returns ASCII int value of key pressed.
+//int keypress();
+//void printLetterLine(int letter){
+//    switch(letter){
+//        case 1:
+//            cout<<"|......................"<<"....................."<<"W"<<"......................"<<"......................|"<<endl;
+//            break;
+//        case 2:
+//            cout<<"|....................."<<"A"<<"......................"<<"......................"<<"......................|"<<endl;
+//            break;
+//        case 3:
+//            cout<<"|......................"<<"....................."<<"S"<<"......................"<<"......................|"<<endl;
+//            break;
+//        default:
+//            cout<<"|......................"<<"....................."<<"......................"<<"D"<<"......................|"<<endl;
+//            break;
+//            ;
+//    }
+//}
+//void printEmptyLine(){
+//    cout<<"|........................................................................................|"<<endl;
+//}
+//
+//int keypress() {
+//    system ("/bin/stty raw");
+//    int c;
+//    system("/bin/stty -echo");
+//    c = getc(stdin);
+//    system("/bin/stty echo");
+//    system ("/bin/stty cooked");
+//    return c;
+//}
 //    srand((unsigned) time(0));
 //    string letter;
 //    int randNum2;
@@ -385,3 +444,69 @@ int KeyboardHero::keypress() {
 //                break;
 //                ;
 //        }
+
+
+
+//Returns ASCII int value of key pressed.
+//int keypress();
+
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b ";
+//    cout<<"\b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b \b "<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<
+//        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"<<endl;
+
+//Better way to do this found... Still works tho.
+//switch(key){
+//case 119://w
+//if(ranNum2==1){
+////correct key was pressed
+//}
+//break;
+//case 97://a
+//if(ranNum2==2){
+////correct key was pressed
+//}
+//break;
+//case 115://s
+//if(ranNum2==3){
+////correct key was pressed
+//}
+//break;
+//case 100://d
+//if(ranNum2==4){
+////correct key was pressed
+//}
+//break;
+//default:
+//;
+//}

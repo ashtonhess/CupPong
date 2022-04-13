@@ -23,8 +23,12 @@ public:
     int keypress();
     void printLetterLine(int letter);
     void printEmptyLine();
+    void printScoreLine(string scoreMsg, int currentScore);
     int play();
 };
 
 
 #endif //CUPPONG_KEYBOARDHERO_H
+
+
+
