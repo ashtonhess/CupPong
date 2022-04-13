@@ -55,6 +55,11 @@ sudo apt install make
 sudo apt-get install g++
 
 git clone https://github.com/ashtonhess/CupPong
+
+cd CupPong
+cd server
+make
+./server
 ```
 
 ## Abstract
