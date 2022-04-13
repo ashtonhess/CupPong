@@ -6,15 +6,39 @@ C++ Project.
 Created by Ashton Hess.
 
 # Client
+## Quickstart
+### Required Software
+1. apt & apt-get package managers
+2. git
+3. make
+4. C++ compiler (g++)
+
+### Quick Setup:
+Run the following commands through terminal in your desired directory:
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install git 
+sudo apt install make
+sudo apt-get install g++
+
+git clone https://github.com/ashtonhess/CupPong
+
+cd CupPong
+cd client
+make
+./client
+```
 
 # Server
 ## Hardware and OS
-The server runs on a Dell Poweredge Ubuntu server. 
-Ububtu release 20.04
+Dell Poweredge 
+
+Ubuntu release 20.04
 ## Networking
-### Dynamic DNS
-cuppong.hessdevelopments.com is the domain used to connect to the server.
-Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron task on the connected router that sends Google DNS the live IP of the server.
+### Dynamic DNS - CupPong.HessDevelopments.com
+cuppong.hessdevelopments.com is the domain used to connect to the central Cup Pong server.
+By default, Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron task on the connected gateway that sends Google DNS the live, updated IP of the server.
 ## Setup
 ### Required Software
 1. apt & apt-get package managers
@@ -22,10 +46,11 @@ Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron t
 3. make
 4. C++ compiler (g++)
 
-To install, run the commands below in your desired directory:
+Run the following commands through terminal in your desired directory:
 ```
 sudo apt update
 sudo apt upgrade
+sudo apt install git
 sudo apt install make
 sudo apt-get install g++
 
