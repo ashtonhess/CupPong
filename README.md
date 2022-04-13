@@ -14,7 +14,7 @@ Ububtu release 20.04
 ## Networking
 ### Dynamic DNS
 cuppong.hessdevelopments.com is the domain used to connect to the server.
-Cup Pong runs on port 11328. DNS ip is updated every 15mins through Google DNS and a chron task on the connected router.
+Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron task on the connected router that sends Google DNS the live IP of the server.
 ## Setup
 ### Required Software
 1. apt & apt-get package managers
