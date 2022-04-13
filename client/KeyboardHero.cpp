@@ -26,6 +26,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -36,6 +37,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -48,6 +50,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -60,6 +63,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -72,6 +76,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -84,6 +89,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -96,6 +102,7 @@ int KeyboardHero::play(){
                     printEmptyLine();
                 }
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -106,6 +113,7 @@ int KeyboardHero::play(){
                 printLetterLine(randNum2);
                 printEmptyLine();
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
                 this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED));
                 system("clear");
             }
@@ -115,6 +123,8 @@ int KeyboardHero::play(){
                 }
                 printLetterLine(randNum2);
                 cout<<endl;
+                cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl;
+
                 chrono::time_point<chrono::system_clock> startKeyListenTime;
                 startKeyListenTime=chrono::system_clock::now();
                 bool killPressed=false;
@@ -131,10 +141,11 @@ int KeyboardHero::play(){
                     if(((randNum2==1)&&(key==119))||((randNum2==2)&&(key==97))||((randNum2==3)&&(key==115))||((randNum2==4)&&(key==100))){
                         if(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - startKeyListenTime).count()<250){
                             //cout<<endl<<endl<<endl<<endl<<"CORRECT KEY PRESSED IN TIME"<<endl<<endl<<endl<<endl;
+                            scoreMsg="Correct key pressed in time!\t+1 Score!";
                             score++;
                             killPressed=true;
                         }else{
-                            //scoreMsg="Did not enter '"<<to_string((char)key)<<"' in time!";
+                            scoreMsg="Did not enter '"+to_string((char)key)+"' in time!";
                             //cout<<"Did not enter key within time limit"<<endl;
                         }
                     }else{
