@@ -1,7 +1,11 @@
 # Cup Pong
 Multiplayer, Command Line Cup Pong.
 
-C++ Project.
+C++ Project. 
+
+Created by Ashton Hess.
+
+# Client
 
 # Server
 ## Hardware and OS
