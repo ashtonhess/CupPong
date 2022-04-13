@@ -4,6 +4,13 @@
 
 #include "Game.h"
 
+//void update(){
+//    string msg;
+//    Network*net;
+//    net = new Network;
+//    msg=net->recvMsg();
+//
+//}
 
 void Game::printGame(){
     printCupsAway();

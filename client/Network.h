@@ -42,6 +42,9 @@ public:
     int signup(string username, string password);
     int hostnameToIP(char *hostname , char *ip);
     string recvMsg();
+    ~Network(){
+        delete addyChar;
+    }
 
 };
 
