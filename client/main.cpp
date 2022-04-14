@@ -29,13 +29,37 @@ vector<string> split (const string &inputString, char delim);
 
 //CLIENT
 int main(int argc, char*argv[]) {
-
-    KeyboardHero* kh = new KeyboardHero;
-    int score=kh->play();
-    cout<<"Score: "<<score<<endl;
+//    KeyboardHero* kh = new KeyboardHero;
+//    int score=kh->play();
+//    cout<<"Score: "<<score<<endl;
+    printWelcome();
+    bool connected=false;
     while(true){
+        Network network = Network();
+        while(!connected){
+            connected=network.connect();
+            if(!connected){
+                cout<<"> Error connecting to network. Trying again..."<<endl;
+                sleep(3);
+            }
+        }
+        bool receivedMsg=false;
+        while(!receivedMsg){
+            cout<<"> Waiting for another player to join..."<<endl;
+            string rmsg=network.recvMsg();
+            if(rmsg!=""){
+                cout<<rmsg<<endl;
+                receivedMsg=true;
+            }
+        }
+
+
+
+
+
 
     }
+
 
 }
 

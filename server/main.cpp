@@ -21,8 +21,8 @@ void *gameFunc(void*arg){
     int sock2=((pair<int,int>*)arg)->second;
 
     Network *networkObj=new Network;
-    networkObj->sendMsg(sock1, "s1: Welcome to Cup Pong!\nYou have successfully joined a game.\n");
-    networkObj->sendMsg(sock2, "s2: Welcome to Cup Pong!\nYou have successfully joined a game.\n");
+    networkObj->sendMsg(sock1, "Welcome to Cup Pong!\nYou have successfully joined a game.\n");
+    networkObj->sendMsg(sock2, "Welcome to Cup Pong!\nYou have successfully joined a game.\n");
 
 
 
