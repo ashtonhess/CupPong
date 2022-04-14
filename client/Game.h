@@ -14,6 +14,16 @@ using namespace std;
 class Game {
 
 public:
+    Game(){
+        player=0;
+        turn=false;
+        for (int i = 0; i < 10; ++i) {
+            homeCups[i].active=true;
+            awayCups[i].active=true;
+        }
+    }
+    int player;
+    bool turn;
     Cup homeCups[10];
     Cup awayCups[10];
 

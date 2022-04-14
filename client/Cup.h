@@ -24,7 +24,7 @@ public:
     bool active;
     //int cupNum;
     //prints cups on other side of board
-    void printCupAway();
+    void printCupAway(int cupNum);
     //prints cups on same side of board
     void printCupHome();
 };

@@ -33,9 +33,10 @@ int main(int argc, char*argv[]) {
 //    int score=kh->play();
 //    cout<<"Score: "<<score<<endl;
     printWelcome();
-    bool connected=false;
     Network network = Network();
+    bool connected=false;
     bool receivedMsg=false;
+    bool playing=false;
     while(true){
 
         while(!connected){
@@ -51,9 +52,33 @@ int main(int argc, char*argv[]) {
             if(rmsg!=""){
                 cout<<rmsg<<endl;
                 receivedMsg=true;
+                playing=true;
+            }else{
+                connected=false;
+                receivedMsg=false;
             }
         }
-        sleep(3);
+        Game game = Game();
+        while(playing){
+            string gmsg=network.recvMsg();
+            if(gmsg!=""){
+                if(gmsg=="PLAYER1"){
+                    game.player=1;
+                    game.turn=true;
+                    cout<<"> You are player 1. It is your turn."<<endl;
+                    game.printGame();
+                }
+                if(gmsg=="PLAYER2"){
+                    game.player=2;
+                    game.turn=false;
+                    cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
+                }
+
+            }else{
+                playing=false;
+            }
+        }
+
 
     }
 
@@ -195,7 +220,7 @@ void printWelcome(){
         "\\ `.___.'\\  \\ \\__/ /   _| |_      _| |_   \\  `-'  _| |_\\   |\\ `.___]  |  \n"<<
         " `.____ .'   `.__.'   |_____|    |_____|   `.___.|_____|\\____`._____.'   \n"<<
         "                                                                         ";
-    sleep(1);
+    sleep(3);
     cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 }
