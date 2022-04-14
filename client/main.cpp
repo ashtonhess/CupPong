@@ -34,8 +34,10 @@ int main(int argc, char*argv[]) {
 //    cout<<"Score: "<<score<<endl;
     printWelcome();
     bool connected=false;
+    Network network = Network();
+    bool receivedMsg=false;
     while(true){
-        Network network = Network();
+
         while(!connected){
             connected=network.connect();
             if(!connected){
@@ -43,7 +45,6 @@ int main(int argc, char*argv[]) {
                 sleep(3);
             }
         }
-        bool receivedMsg=false;
         while(!receivedMsg){
             cout<<"> Waiting for another player to join..."<<endl;
             string rmsg=network.recvMsg();
@@ -52,15 +53,11 @@ int main(int argc, char*argv[]) {
                 receivedMsg=true;
             }
         }
-
-
-
-
-
+        sleep(3);
 
     }
 
-
+    return 0;
 }
 
 //    cout<<"\t\t\t\t"<<endl;
