@@ -10,8 +10,9 @@ using namespace std;
 
 #include "Cup.h"
 #include "Network.h"
+#include "KeyboardHero.h"
 
-class Game {
+class Game: public KeyboardHero {
 
 public:
     Game(){

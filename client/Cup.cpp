@@ -26,34 +26,34 @@ void Cup::printCupAway(int cupNum) {
         //cout<<" \\_/";
         switch (cupNum) {
             case 0:
-                cout<<" \\"<<UNDERLINE<<"4"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"1"<<CLOSEUNDERLINE<<"/";
                 break;
             case 1:
-                cout<<" \\"<<UNDERLINE<<"5"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"2"<<CLOSEUNDERLINE<<"/";
                 break;
             case 2:
-                cout<<" \\"<<UNDERLINE<<"6"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"3"<<CLOSEUNDERLINE<<"/";
                 break;
             case 3:
-                cout<<" \\"<<UNDERLINE<<"7"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"4"<<CLOSEUNDERLINE<<"/";
                 break;
             case 4:
-                cout<<" \\"<<UNDERLINE<<"R"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"Q"<<CLOSEUNDERLINE<<"/";
                 break;
             case 5:
-                cout<<" \\"<<UNDERLINE<<"T"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"W"<<CLOSEUNDERLINE<<"/";
                 break;
             case 6:
-                cout<<" \\"<<UNDERLINE<<"Y"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"E"<<CLOSEUNDERLINE<<"/";
                 break;
             case 7:
-                cout<<" \\"<<UNDERLINE<<"F"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"A"<<CLOSEUNDERLINE<<"/";
                 break;
             case 8:
-                cout<<" \\"<<UNDERLINE<<"G"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"S"<<CLOSEUNDERLINE<<"/";
                 break;
             default:
-                cout<<" \\"<<UNDERLINE<<"V"<<CLOSEUNDERLINE<<"/";
+                cout<<" \\"<<UNDERLINE<<"Z"<<CLOSEUNDERLINE<<"/";
                 ;
         }
     }else{

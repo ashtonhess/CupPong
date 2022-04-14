@@ -17,7 +17,7 @@ void Game::printGame(){
     cout<<endl<<"\t\t-------------"<<endl<<endl;
     printCupsHome();
     cout<<endl;
-    cout<<"Use the keyboard to choose your shot!"<<endl;
+    cout<<"Use the keyboard to choose your shot and press enter!"<<endl;
 }
 //Prints cup tower for AWAY team.
 void Game::printCupsAway() {

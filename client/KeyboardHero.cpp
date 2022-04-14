@@ -4,7 +4,7 @@
 
 #include "KeyboardHero.h"
 
-int KeyboardHero::play(){
+int KeyboardHero::playKeyboardHero(){
     int score=0;
     string scoreMsg;
     srand((unsigned) time(0));

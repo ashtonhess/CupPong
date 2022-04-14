@@ -67,6 +67,21 @@ int main(int argc, char*argv[]) {
                     game.turn=true;
                     cout<<"> You are player 1. It is your turn."<<endl;
                     game.printGame();
+                    int cupInput;
+                    cupInput=getchar();
+                    cout<<endl<<endl<<"Throwing at cup "<<(char)cupInput<<"!"<<endl<<endl;
+                   // sleep(1);
+                    cout<<"Starting in 3... "<<endl;
+                    sleep(1);
+                    cout<<"2... "<<endl;
+                    sleep(1);
+                    cout<<"1..."<<endl<<endl<<endl<<endl;
+                    sleep(1);
+                    int keyboardHeroResult;
+                    keyboardHeroResult=game.playKeyboardHero();
+                    string smsg = "THROW,"+to_string(cupInput)+","+to_string(keyboardHeroResult);
+                    network.sendMsg(smsg);
+
                 }
                 if(gmsg=="PLAYER2"){
                     game.player=2;

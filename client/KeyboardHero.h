@@ -24,7 +24,7 @@ public:
     void printLetterLine(int letter);
     void printEmptyLine();
     void printScoreLine(string scoreMsg, int currentScore);
-    int play();
+    int playKeyboardHero();
 };
 
 
