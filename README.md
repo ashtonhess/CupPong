@@ -6,7 +6,7 @@ C++ Project.
 Created by Ashton Hess.
 
 # Client
-The client program will automatically connect to the central server hosted at CupPong.HessDevelopments.com. Matchmaking will be handled automatically and the server will insert you in a game against another connected player after connecting.
+All you need to play the game is a runnable client program and an internet connection. The client program will automatically connect to the central server hosted at CupPong.HessDevelopments.com. Matchmaking will be handled automatically and the server will insert you in a game against another connected player.
 ## Quickstart
 ### Required Software
 1. apt & apt-get package managers
@@ -39,7 +39,7 @@ Ubuntu release 20.04
 ## Networking
 ### Dynamic DNS - CupPong.HessDevelopments.com
 cuppong.hessdevelopments.com is the domain used to connect to the central Cup Pong server.
-By default, Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron task on the connected gateway that sends Google DNS the live, updated IP of the server.
+By default, Cup Pong runs on port 11328. DNS IP is updated every 15 minutes through a cron task on the connected gateway that sends Google DNS the live, updated IP of the server. To host the server on your own, you will have to modify some of the network programming.
 ## Setup
 ### Required Software
 1. apt & apt-get package managers
