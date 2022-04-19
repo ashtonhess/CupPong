@@ -40,6 +40,7 @@ public:
     bool sendMsg(int sock, string msg);
     int login(string username, string password);
     int newUser(string username, string password);
+    string recvMsg(int sock);
 
 };
 

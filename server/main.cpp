@@ -22,10 +22,15 @@ void *gameFunc(void*arg){
 
     Network network=Network();
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
-    network.sendMsg(sock1, "PLAYER1");
+    network.sendMsg(sock1, "INIT PLAYER1");
 
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
-    network.sendMsg(sock2, "PLAYER2");
+    network.sendMsg(sock2, "INIT PLAYER2");
+
+    bool playing;
+    while(playing){
+        playing=false;
+    }
 
 
     return NULL;

@@ -75,6 +75,14 @@ bool Network::sendMsg(int sock, string msg){
     }
     return true;
 }
+string Network::recvMsg(int sock){
+    char buffer[256] = {0};
+    if (recv(sock, buffer, 256, 0) < 0){
+        cout<<"> Error: Message receiving failed."<<endl;
+        return "";
+    }
+    return buffer;
+}
 
 
 

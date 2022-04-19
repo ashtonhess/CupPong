@@ -62,7 +62,7 @@ int main(int argc, char*argv[]) {
         while(playing){
             string gmsg=network.recvMsg();
             if(gmsg!=""){
-                if(gmsg=="PLAYER1"){
+                if(gmsg=="INIT PLAYER1"){
                     game.player=1;
                     game.turn=true;
                     cout<<"> You are player 1. It is your turn."<<endl;
@@ -83,13 +83,15 @@ int main(int argc, char*argv[]) {
                     network.sendMsg(smsg);
 
                 }
-                if(gmsg=="PLAYER2"){
+                if(gmsg=="INIT PLAYER2"){
                     game.player=2;
                     game.turn=false;
                     cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
                 }
 
+
             }else{
+                cout<<"> Error. gmsg."<<endl;
                 playing=false;
             }
         }
