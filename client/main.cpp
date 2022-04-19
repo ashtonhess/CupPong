@@ -85,6 +85,20 @@ int main(int argc, char*argv[]) {
                             sleep(1);
                             int keyboardHeroResult;
                             keyboardHeroResult=game.playKeyboardHero();
+                            //cupInput keys
+                            /* cupInput keys:
+                            '1'=49
+                            '2'=50
+                            '3'=51
+                            '4'=52
+                                ' '=lowercase=uppercase
+                            'q'=113=81
+                            'w'=119=87
+                            'e'=101=69
+                            'a'=97=65
+                            's'=115=83
+                            'z'=122=90
+                             */
                             string smsg = "THROW "+to_string(game.player)+" "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
                             network.sendMsg(smsg);
 
@@ -98,9 +112,6 @@ int main(int argc, char*argv[]) {
                     case 3:
                         break;
                     case 4:
-                        if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cup) (keyboardHeroResult)'
-
-                        }
                         break;
                     default:
                         ;
@@ -117,6 +128,41 @@ int main(int argc, char*argv[]) {
     return 0;
 }
 
+vector<string> split (const string &inputString, char delim) {
+    stringstream stringStream (inputString);
+    string piece;
+    vector<string> result;
+    while (getline (stringStream, piece, delim)) {
+        result.push_back (piece);
+    }
+    return result;
+}
+void printWelcome(){
+    cout<<" ____      ____ ________ _____      ______   ___  ____    ____ ________  \n"<<
+        "|_  _|    |_  _|_   __  |_   _|   .' ___  |.'   `|_   \\  /   _|_   __  | \n"<<
+        "  \\ \\  /\\  / /   | |_ \\_| | |    / .'   \\_/  .-.  \\|   \\/   |   | |_ \\_| \n"<<
+        "   \\ \\/  \\/ /    |  _| _  | |   _| |      | |   | || |\\  /| |   |  _| _  \n"<<
+        "    \\  /\\  /    _| |__/ |_| |__/ \\ `.___.'\\  `-'  _| |_\\/_| |_ _| |__/ | \n"<<
+        " ____\\/__\\/  __|________|________|`.____ .'`.___.|_____||_____|________| \n"<<
+        "                          |  _   _  |.'   `.                                 \n"<<
+        "                          |_/ | | \\_/  .-.  \\                            \n"<<
+        "                              | |   | |   | |                         \n"<<
+        "                             _| |_  \\  `-'  /                           \n"<<
+        "                            |_____|  `.___.'                          \n"<<
+        "   ______ _____  _____ _______    _______    ___  ____  _____  ______    \n"<<
+        " .' ___  |_   _||_   _|_   __ \\  |_   __ \\ .'   `|_   \\|_   _.' ___  |   \n"<<
+        "/ .'   \\_| | |    | |   | |__) |   | |__) /  .-.  \\|   \\ | |/ .'   \\_|   \n"<<
+        "| |        | '    ' |   |  ___/    |  ___/| |   | || |\\ \\| || |   ____   \n"<<
+        "\\ `.___.'\\  \\ \\__/ /   _| |_      _| |_   \\  `-'  _| |_\\   |\\ `.___]  |  \n"<<
+        " `.____ .'   `.__.'   |_____|    |_____|   `.___.|_____|\\____`._____.'   \n"<<
+        "                                                                         ";
+    sleep(3);
+    cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+}
+
+
+
 //    cout<<"\t\t\t\t"<<endl;
 //    cout<<"\t\t\t\t"<<endl;
 //    cout<<"\t\t\t\t"<<endl;
@@ -126,7 +172,7 @@ int main(int argc, char*argv[]) {
 
 
 
-/*
+/*OLD MAIN
 int main(int argc, char*argv[]){
     printWelcome();
 
@@ -223,39 +269,10 @@ int main(int argc, char*argv[]){
     }
     return 0;
 }
-*/
-vector<string> split (const string &inputString, char delim) {
-    stringstream stringStream (inputString);
-    string piece;
-    vector<string> result;
-    while (getline (stringStream, piece, delim)) {
-        result.push_back (piece);
-    }
-    return result;
-}
-void printWelcome(){
-    cout<<" ____      ____ ________ _____      ______   ___  ____    ____ ________  \n"<<
-        "|_  _|    |_  _|_   __  |_   _|   .' ___  |.'   `|_   \\  /   _|_   __  | \n"<<
-        "  \\ \\  /\\  / /   | |_ \\_| | |    / .'   \\_/  .-.  \\|   \\/   |   | |_ \\_| \n"<<
-        "   \\ \\/  \\/ /    |  _| _  | |   _| |      | |   | || |\\  /| |   |  _| _  \n"<<
-        "    \\  /\\  /    _| |__/ |_| |__/ \\ `.___.'\\  `-'  _| |_\\/_| |_ _| |__/ | \n"<<
-        " ____\\/__\\/  __|________|________|`.____ .'`.___.|_____||_____|________| \n"<<
-        "                          |  _   _  |.'   `.                                 \n"<<
-        "                          |_/ | | \\_/  .-.  \\                            \n"<<
-        "                              | |   | |   | |                         \n"<<
-        "                             _| |_  \\  `-'  /                           \n"<<
-        "                            |_____|  `.___.'                          \n"<<
-        "   ______ _____  _____ _______    _______    ___  ____  _____  ______    \n"<<
-        " .' ___  |_   _||_   _|_   __ \\  |_   __ \\ .'   `|_   \\|_   _.' ___  |   \n"<<
-        "/ .'   \\_| | |    | |   | |__) |   | |__) /  .-.  \\|   \\ | |/ .'   \\_|   \n"<<
-        "| |        | '    ' |   |  ___/    |  ___/| |   | || |\\ \\| || |   ____   \n"<<
-        "\\ `.___.'\\  \\ \\__/ /   _| |_      _| |_   \\  `-'  _| |_\\   |\\ `.___]  |  \n"<<
-        " `.____ .'   `.__.'   |_____|    |_____|   `.___.|_____|\\____`._____.'   \n"<<
-        "                                                                         ";
-    sleep(3);
-    cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+END OLD MAIN
+ */
 
-}
+
 //GAME BOARD PRINT TESTING-------------------------------------------------------------
 //Game game = Game();
 //game.printGame();
@@ -340,7 +357,23 @@ void* routine(void* arg){
     }
 */
 
-
+//Getting to_string conversion of chars.
+//cout<<to_string('1')<<endl;
+//cout<<to_string('2')<<endl;
+//cout<<to_string('3')<<endl;
+//cout<<to_string('4')<<endl;
+//cout<<"q "<<to_string('q')<<endl;
+//cout<<"w "<<to_string('w')<<endl;
+//cout<<"e "<<to_string('e')<<endl;
+//cout<<"a "<<to_string('a')<<endl;
+//cout<<"s "<<to_string('s')<<endl;
+//cout<<"z "<<to_string('z')<<endl;
+//cout<<"Q "<<to_string('Q')<<endl;
+//cout<<"W "<<to_string('W')<<endl;
+//cout<<"E "<<to_string('E')<<endl;
+//cout<<"A "<<to_string('A')<<endl;
+//cout<<"S "<<to_string('S')<<endl;
+//cout<<"Z "<<to_string('Z')<<endl;
 
 
 

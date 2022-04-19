@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include "Singleton.h"
 #include "Network.h"
+#include <ctime>
 
 //disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
 // add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
@@ -46,8 +47,32 @@ void *gameFunc(void*arg){
                 case 3:
                     break;
                 case 4:
-                    if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cup) (keyboardHeroResult)'
+                    if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cupInput) (keyboardHeroResult)'
+                        //cupInput keys
+                        /* cupInput keys:
+                            '1'=49
+                            '2'=50
+                            '3'=51
+                            '4'=52
+                                ' '=lowercase=uppercase
+                            'q'=113=81
+                            'w'=119=87
+                            'e'=101=69
+                            'a'=97=65
+                            's'=115=83
+                            'z'=122=90
+                             */
+                        //initalizing rand to calculate make or miss.
+                        srand((unsigned) time(0));
+                        int randNum;
+                        randNum = (rand() % 10 + 1);//generates a random number from 1-10
+                        if(randNum<=stoi(delimitVector.at(3))){//if the random number is less than or = to result, it is a make.
+                            cout<<"THROW MAKE"<<endl;
+                        }else{
+                            cout<<"THROW MISS"<<endl;
+                        }
 
+                        cout<<"> rmsg THROW: "<<rmsg<<endl;
                     }
                     break;
                 default:
