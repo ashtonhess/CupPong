@@ -12,6 +12,7 @@ class SGame: public SGameState {
 private:
 public:
 
+    bool throwResult(int keyboardHeroResult);
 
     SGame(){
         //Game starts with player1

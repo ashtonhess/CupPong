@@ -8,6 +8,7 @@
 #include "Singleton.h"
 #include "Network.h"
 #include <ctime>
+#include "SGame.h"
 
 //disabling inf loop inspection for this file in CLion. Perm fix. Comment out to make work with -Werror.
 // add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
@@ -23,6 +24,7 @@ void *gameFunc(void*arg){
     int sock2=((pair<int,int>*)arg)->second;
 
     Network network=Network();
+    SGame game=SGame();
 
     //It is PLAYER1's turn first.
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
@@ -62,15 +64,18 @@ void *gameFunc(void*arg){
                             's'=115=83
                             'z'=122=90
                              */
-                        //initalizing rand to calculate make or miss.
-                        srand((unsigned) time(0));
-                        int randNum;
-                        randNum = (rand() % 10 + 1);//generates a random number from 1-10
-                        if(randNum<=stoi(delimitVector.at(3))){//if the random number is less than or = to result, it is a make.
-                            cout<<"THROW MAKE"<<endl;
+
+                        //determine make/miss.
+                        bool throwResult;
+                        throwResult=game.throwResult(stoi(delimitVector.at(3)));
+                        if(throwResult){
+                            cout<<"MAKE-throwResult TRUE."<<endl;
+                            //Remove cup from table-set cup to false
                         }else{
-                            cout<<"THROW MISS"<<endl;
+                            //Don't remove cup from table.
+                            cout<<"MISS-throwResult FALSE"<<endl;
                         }
+//
 
                         cout<<"> rmsg THROW: "<<rmsg<<endl;
                     }
@@ -183,6 +188,17 @@ vector<string> split (const string &inputString, char delim) {
 #pragma clang diagnostic pop
 
 
+
+//DETERMINE CUP MAKE OR MISS
+//initalizing rand to calculate make or miss.
+//                        srand((unsigned) time(0));
+//                        int randNum;
+//                        randNum = (rand() % 10 + 1);//generates a random number from 1-10
+//                        if(randNum<=stoi(delimitVector.at(3))){//if the random number is less than or = to result, it is a make.
+//                            cout<<"THROW MAKE"<<endl;
+//                        }else{
+//                            cout<<"THROW MISS"<<endl;
+//                        }
 
 
 //}else{
