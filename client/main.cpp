@@ -62,34 +62,49 @@ int main(int argc, char*argv[]) {
         while(playing){
             string gmsg=network.recvMsg();
             if(gmsg!=""){
-                if(gmsg=="INIT PLAYER1"){
-                    game.player=1;
-                    game.turn=true;
-                    cout<<"> You are player 1. It is your turn."<<endl;
-                    game.printGame();
-                    int cupInput;
-                    cupInput=getchar();
-                    cout<<endl<<endl<<"Throwing at cup "<<(char)cupInput<<"!"<<endl<<endl;
-                   // sleep(1);
-                    cout<<"Starting in 3... "<<endl;
-                    sleep(1);
-                    cout<<"2... "<<endl;
-                    sleep(1);
-                    cout<<"1..."<<endl<<endl<<endl<<endl;
-                    sleep(1);
-                    int keyboardHeroResult;
-                    keyboardHeroResult=game.playKeyboardHero();
-                    string smsg = "THROW,"+to_string(cupInput)+","+to_string(keyboardHeroResult);
-                    network.sendMsg(smsg);
+                vector<string> delimitVector;
+                delimitVector = split(gmsg,' ');
+                switch(delimitVector.size()){
+                    case 1:
+                        break;
+                    case 2:
+                        if(gmsg=="INIT PLAYER1"){
+                            game.player=1;
+                            game.turn=true;
+                            cout<<"> You are player 1. It is your turn."<<endl;
+                            game.printGame();
+                            int cupInput;
+                            cupInput=getchar();
+                            cout<<endl<<endl<<"Throwing at cup "<<(char)cupInput<<"!"<<endl<<endl;
+                            // sleep(1);
+                            cout<<"Starting in 3... "<<endl;
+                            sleep(1);
+                            cout<<"2... "<<endl;
+                            sleep(1);
+                            cout<<"1..."<<endl<<endl<<endl<<endl;
+                            sleep(1);
+                            int keyboardHeroResult;
+                            keyboardHeroResult=game.playKeyboardHero();
+                            string smsg = "THROW "+to_string(game.player)+" "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
+                            network.sendMsg(smsg);
 
+                        }
+                        if(gmsg=="INIT PLAYER2"){
+                            game.player=2;
+                            game.turn=false;
+                            cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
+                        }
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cup) (keyboardHeroResult)'
+
+                        }
+                        break;
+                    default:
+                        ;
                 }
-                if(gmsg=="INIT PLAYER2"){
-                    game.player=2;
-                    game.turn=false;
-                    cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
-                }
-
-
             }else{
                 cout<<"> Error. gmsg."<<endl;
                 playing=false;

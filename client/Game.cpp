@@ -19,7 +19,7 @@ void Game::printGame(){
     cout<<endl;
     cout<<"Use the keyboard to choose your shot and press enter!"<<endl;
 }
-//Prints cup tower for AWAY team.
+//Prints cup tower for AWAY team. (Underlined letters and nums so player can choose cup)
 void Game::printCupsAway() {
     int c = 0;
     int offsetX = 22;
@@ -35,7 +35,6 @@ void Game::printCupsAway() {
         cout << endl;
     }
 }
-
 //Prints cup tower for HOME team.
 void Game::printCupsHome() {
     int c=0;
@@ -51,7 +50,6 @@ void Game::printCupsHome() {
         }
         cout<<endl;
     }
-
 }
 
 //    for (int i = 0; i < 10; ++i) {

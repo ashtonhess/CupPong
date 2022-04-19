@@ -12,6 +12,7 @@
 // add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
+vector<string> split (const string &inputString, char delim);
 
 void *gameFunc(void*arg){
     cout<<"Game func"<<endl;
@@ -30,11 +31,31 @@ void *gameFunc(void*arg){
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock2, "INIT PLAYER2");
 
-    bool playing;
+    bool playing=true;
     while(playing){
         string rmsg=network.recvMsg(sock1);
         cout<<"> rmsg sock "<<sock1<<": "<<rmsg<<endl;
-        playing=false;
+        if(rmsg!=""){
+            vector<string> delimitVector;
+            delimitVector = split(rmsg,' ');
+            switch(delimitVector.size()){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cup) (keyboardHeroResult)'
+
+                    }
+                    break;
+                default:
+                    ;
+            }
+        }else{
+            playing=false;
+        }
     }
 
 
@@ -117,8 +138,23 @@ int main(int argc, char*argv[]){
             cout<<"> Error creating thread."<<endl;
         }
         pthread_exit(NULL);
+
+
+        return 0;
 }
 
+
+
+
+vector<string> split (const string &inputString, char delim) {
+    stringstream stringStream (inputString);
+    string piece;
+    vector<string> result;
+    while (getline (stringStream, piece, delim)) {
+        result.push_back (piece);
+    }
+    return result;
+}
 #pragma clang diagnostic pop
 
 
