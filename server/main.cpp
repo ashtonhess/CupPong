@@ -21,14 +21,19 @@ void *gameFunc(void*arg){
     int sock2=((pair<int,int>*)arg)->second;
 
     Network network=Network();
+
+    //It is PLAYER1's turn first.
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock1, "INIT PLAYER1");
 
+    //PLAYER2 is waiting to receive game state after player 1's toss.
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock2, "INIT PLAYER2");
 
     bool playing;
     while(playing){
+        string rmsg=network.recvMsg(sock1);
+        cout<<"> rmsg sock "<<sock1<<": "<<rmsg<<endl;
         playing=false;
     }
 
