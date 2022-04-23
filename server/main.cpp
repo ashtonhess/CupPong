@@ -29,10 +29,11 @@ void *gameFunc(void*arg){
     //It is PLAYER1's turn first.
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock1, "INIT PLAYER1");
-
+    cout<<"sent: INIT PLAYER1"<<endl;
     //PLAYER2 is waiting to receive game state after player 1's toss.
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock2, "INIT PLAYER2");
+    cout<<"send: INIT PLAYER2"<<endl;
 
     bool playing=true;
     while(playing){
@@ -84,8 +85,16 @@ void *gameFunc(void*arg){
                             }else{
                                 game.awayCupsState[makeCupIndex]=false;
                             }
-                            cout<<"home state: "<<endl<<game.getHomeState()<<endl;
-                            cout<<"away state: "<<endl<<game.getAwayState()<<endl;
+                            cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
+                            cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
+                            if(!game.end()){//TESTING
+                                cout<<"GAME IS OVER"<<endl;
+                                //end game here
+                                network.sendMsg(sock1, "END");
+                                network.sendMsg(sock2, "END");
+                            }else{
+
+                            }
                         }else{
                             //Don't remove cup from table.
                             cout<<"MISS-throwResult FALSE"<<endl;

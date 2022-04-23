@@ -38,7 +38,7 @@ int main(int argc, char*argv[]) {
     bool receivedMsg=false;
     bool playing=false;
     while(true){
-
+        receivedMsg=false;
         while(!connected){
             connected=network.connect();
             if(!connected){
@@ -66,6 +66,12 @@ int main(int argc, char*argv[]) {
                 delimitVector = split(gmsg,' ');
                 switch(delimitVector.size()){
                     case 1:
+                        if(gmsg=="END"){
+                            cout<<"The game is over!"<<endl<<endl<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                            sleep(10);
+                            playing=false;
+                            connected=false;
+                        }
                         break;
                     case 2:
                         if(gmsg=="INIT PLAYER1"){
@@ -116,8 +122,9 @@ int main(int argc, char*argv[]) {
                         ;
                 }
             }else{
-                cout<<"> Error. gmsg."<<endl;
+                cout<<"> Network error. Reconnecting..."<<endl;
                 playing=false;
+                connected=false;
             }
         }
 

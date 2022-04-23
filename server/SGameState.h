@@ -19,7 +19,9 @@ public:
     string getAwayState();
     void switchTurn();
     void genTranslateMap();
+    bool end();
     int translate(string str);
+
 };
 
 

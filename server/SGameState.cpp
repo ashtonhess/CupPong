@@ -4,14 +4,28 @@
 
 #include "SGameState.h"
 
+bool SGameState::end(){
+    //checks all cups in both home and away. If any cup is true, game is not over.
+    for (int i = 0; i < 9; ++i) {
+        if(homeCupsState[i]){
+            return false;
+        }
+        if(awayCupsState[i]){
+            return false;
+        }
+    }
+    //if no cups are true, game is over.
+    return true;
+}
+
 string SGameState::getHomeState(){
     string returnString;
     //0 is false, 1 is true.
     for (int i = 0; i < 10; ++i) {
         if(!homeCupsState[i]){
-            returnString+="0";
+            returnString+="0 ";
         }else{
-            returnString+="1";
+            returnString+="1 ";
         }
     }
     return returnString;
@@ -21,9 +35,9 @@ string SGameState::getAwayState(){
     //0 is false, 1 is true.
     for (int i = 0; i < 10; ++i) {
         if(!awayCupsState[i]){
-            returnString+="0";
+            returnString+="0 ";
         }else{
-            returnString+="1";
+            returnString+="1 ";
         }
     }
     return returnString;
