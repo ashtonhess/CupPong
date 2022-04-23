@@ -79,10 +79,10 @@ int main(int argc, char*argv[]) {
                             game.turn=true;
                             cout<<"> You are player 1. It is your turn."<<endl;
                             game.printGame();
+                            cout<<"Use the keyboard to choose your shot and press enter!"<<endl;
                             int cupInput;
                             cupInput=getchar();
                             cout<<endl<<endl<<"Throwing at cup "<<(char)cupInput<<"!"<<endl<<endl;
-                            // sleep(1);
                             cout<<"Starting in 3... "<<endl;
                             sleep(1);
                             cout<<"2... "<<endl;
@@ -107,16 +107,80 @@ int main(int argc, char*argv[]) {
                              */
                             string smsg = "THROW "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
                             network.sendMsg(smsg);
+                            //game.switchTurn();
                         }
                         if(gmsg=="INIT PLAYER2"){
                             game.player=2;
                             game.turn=false;
-                            cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
+                            game.printGame();
+                            cout<<"> You are player 2. Wait for the other player to toss!"<<endl;
                         }//break and wait for new msg...
                         break;
-                    case 3:
-                        break;
-                    case 4:
+                    case 21:
+                        if(delimitVector.at(0)=="GAMESTATE"){
+                            cout<<gmsg<<endl;
+
+//                            for (int i = 0; i < 22; ++i) {
+//                                cout<<"delimV: "<<i<<" "<<delimitVector.at(i)<<endl;
+//                            }
+                            for (int i = 0; i < 10; ++i) {
+
+                                bool home=true;
+                                if(delimitVector.at(i+1)=="0"){
+                                    home=false;
+                                }
+                                bool away=true;
+                                if(delimitVector.at(i+1+10)=="0"){//setting offset so this passes the values for home.
+                                    away=false;
+                                }
+                                game.homeCups[(i-9)*-1].active=home;
+                                game.awayCups[(i-9)*-1].active=away;
+                                //(i-9)*-1
+                                //cout<<"homeCup: "<<game.homeCups[i].active;
+                                //cout<<"awayCup: "<<game.awayCups[i].active;
+                            }
+                            cout<<"GAMESTATE UPDATED"<<endl;
+                            game.switchTurn();
+                            //game.printGame();
+
+                            if(game.turn){
+                                cout<<">It is your turn."<<endl;
+                                game.printGame();
+                                cout<<"Use the keyboard to choose your shot and press enter!"<<endl;
+                                int cupInput;
+                                cupInput=getchar();
+                                cout<<endl<<endl<<"Throwing at cup "<<(char)cupInput<<"!"<<endl<<endl;
+                                cout<<"Starting in 3... "<<endl;
+                                sleep(1);
+                                cout<<"2... "<<endl;
+                                sleep(1);
+                                cout<<"1..."<<endl<<endl<<endl<<endl;
+                                sleep(1);
+                                int keyboardHeroResult;
+                                keyboardHeroResult=game.playKeyboardHero();
+                                //cupInput keys
+                                /* cupInput keys:
+                                '1'=49
+                                '2'=50
+                                '3'=51
+                                '4'=52
+                                    ' '=lowercase=uppercase
+                                'q'=113=81
+                                'w'=119=87
+                                'e'=101=69
+                                'a'=97=65
+                                's'=115=83
+                                'z'=122=90
+                                 */
+                                string smsg = "THROW "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
+                                network.sendMsg(smsg);
+                            }else{
+                                game.printGame();
+                                cout<<"Wait for the other player to toss!"<<endl;
+                            }
+
+
+                        }
                         break;
                     default:
                         ;

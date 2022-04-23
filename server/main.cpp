@@ -87,20 +87,34 @@ void *gameFunc(void*arg){
                             }
                             cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
                             cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
-                            if(!game.end()){//TESTING
+                            if(game.end()){
                                 cout<<"GAME IS OVER"<<endl;
                                 //end game here
                                 network.sendMsg(sock1, "END");
                                 network.sendMsg(sock2, "END");
+                                playing=false;
                             }else{
-
+                                //Send updated gamestate to both clients
+                                string sock1GameState="GAMESTATE "+game.getAwayState()+game.getHomeState();
+                                //cout<<"Msg:sock1: "<<sock1GameState<<endl;
+                                string sock2GameState="GAMESTATE "+game.getHomeState()+game.getAwayState();
+                                //cout<<"Msg:sock2: "<<sock2GameState<<endl;                  //.
+                                network.sendMsg(sock1, sock1GameState);
+                                network.sendMsg(sock2, sock2GameState);
+                                //TEST GAMESTATE STRINGS
+                                //"GAMESTATE 0 1 0 1 0 1 1 0 1 1. 1 0 1 1 0 1 1 0 1 1 "
+                                //"GAMESTATE 1 0 1 1 0 1 1 0 1 1. 0 1 0 1 0 1 1 0 1 1 "
+                                game.switchTurn();
                             }
                         }else{
                             //Don't remove cup from table.
-                            cout<<"MISS-throwResult FALSE"<<endl;
-
+                            string sock1GameState="GAMESTATE "+game.getAwayState()+game.getHomeState();
+                            string sock2GameState="GAMESTATE "+game.getHomeState()+game.getAwayState();
+                            network.sendMsg(sock1, sock1GameState);
+                            network.sendMsg(sock2, sock2GameState);
                             //network.sendMsg();
                             //network.sendMsg();
+                            game.switchTurn();
                         }
 
                         cout<<"> PROCESSED msg: "<<rmsg<<endl;

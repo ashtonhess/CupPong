@@ -18,7 +18,7 @@ void Cup::printCupHome() {
         cout<<" \\_/";
         //cout<<" \\"<<UNDERLINE<<"a"<<CLOSEUNDERLINE<<"/";
     }else{
-        cout<<"     ";
+        cout<<"    ";
     }
 }
 void Cup::printCupAway(int cupNum) {
@@ -57,7 +57,7 @@ void Cup::printCupAway(int cupNum) {
                 ;
         }
     }else{
-        cout<<"     ";
+        cout<<"    ";
     }
 }
 
