@@ -36,8 +36,14 @@ void *gameFunc(void*arg){
 
     bool playing=true;
     while(playing){
-        string rmsg=network.recvMsg(sock1);
-        cout<<"> rmsg sock "<<sock1<<": "<<rmsg<<endl;
+        string rmsg;
+        if(game.p1Turn){
+            rmsg=network.recvMsg(sock1);
+            cout<<"> rmsg sock "<<sock1<<": "<<rmsg<<endl;
+        }else{
+            rmsg=network.recvMsg(sock2);
+            cout<<"> rmsg sock "<<sock2<<": "<<rmsg<<endl;
+        }
         if(rmsg!=""){
             vector<string> delimitVector;
             delimitVector = split(rmsg,' ');
@@ -47,9 +53,8 @@ void *gameFunc(void*arg){
                 case 2:
                     break;
                 case 3:
-                    break;
-                case 4:
-                    if(delimitVector.at(0)=="THROW"){//Accepts in format 'THROW (playerNum) (cupInput) (keyboardHeroResult)'
+                    //Accepts in format 'THROW (cupInput) (keyboardHeroResult)'
+                    if(delimitVector.at(0)=="THROW"){
                         //cupInput keys
                         /* cupInput keys:
                             '1'=49
@@ -64,20 +69,32 @@ void *gameFunc(void*arg){
                             's'=115=83
                             'z'=122=90
                              */
-
                         //determine make/miss.
                         bool throwResult;
-                        throwResult=game.throwResult(stoi(delimitVector.at(3)));
+                        throwResult=game.throwResult(stoi(delimitVector.at(2)));
                         if(throwResult){
-                            cout<<"MAKE-throwResult TRUE."<<endl;
+                            int makeCupIndex;
+                            //cout<<"translating: "<<delimitVector.at(1)<<endl;
+                            makeCupIndex = game.translate(delimitVector.at(1));
+                            cout<<"MAKE CUP: "<<makeCupIndex<<endl;
+                            //cout<<"MAKE-throwResult TRUE."<<endl;
                             //Remove cup from table-set cup to false
+                            if(game.p1Turn){
+                                game.homeCupsState[makeCupIndex]=false;
+                            }else{
+                                game.awayCupsState[makeCupIndex]=false;
+                            }
+                            cout<<"home state: "<<endl<<game.getHomeState()<<endl;
+                            cout<<"away state: "<<endl<<game.getAwayState()<<endl;
                         }else{
                             //Don't remove cup from table.
                             cout<<"MISS-throwResult FALSE"<<endl;
-                        }
-//
 
-                        cout<<"> rmsg THROW: "<<rmsg<<endl;
+                            //network.sendMsg();
+                            //network.sendMsg();
+                        }
+
+                        cout<<"> PROCESSED msg: "<<rmsg<<endl;
                     }
                     break;
                 default:
@@ -101,7 +118,6 @@ void *connectListener(void*arg){
         Network network = Network();
         if(boolV){//if the server is not connected yet (first time calling this), connect to server...
             if(network.connect()){
-//                cout<<"Network connected."<<endl;
                 boolV=false;
             }else{
                 cout<<"> Error connecting to network."<<endl;
@@ -150,31 +166,29 @@ void *connectListener(void*arg){
 }
 
 int main(int argc, char*argv[]){
-    FileIO *f = new FileIO();
-    f->setFilename("users.txt");
-    Singleton::getInstance()->setFile(*f);
-    Singleton*singler = Singleton::getInstance();
-    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
-    singler->getFile().readUsers();
-
+//    FileIO *f = new FileIO();
+//    f->setFilename("users.txt");
+//    Singleton::getInstance()->setFile(*f);
+//    Singleton*singler = Singleton::getInstance();
+//    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+//    singler->getFile().readUsers();
 
     vector<pthread_t> threads;
     pthread_t t1;
     int res;
-    //Network networkObj = Network();
-    //if (networkObj.connect()) {
-        res=pthread_create(&t1, NULL, &connectListener, NULL);
-        if (res!=0){
-            cout<<"> Error creating thread."<<endl;
-        }
-        pthread_exit(NULL);
+    //ConnectLister Thread
+    /*This thread will run all the time. It dynamically creates game threads to run a game between two users.
+    ConnectListener and the game threads all run concurrently so new users can connect while other users are
+    playing. */
+    res=pthread_create(&t1, NULL, &connectListener, NULL);
+    if (res!=0){
+        cout<<"> Error creating thread."<<endl;
+    }
+    pthread_exit(NULL);
 
 
-        return 0;
+    return 0;
 }
-
-
-
 
 vector<string> split (const string &inputString, char delim) {
     stringstream stringStream (inputString);
@@ -186,8 +200,6 @@ vector<string> split (const string &inputString, char delim) {
     return result;
 }
 #pragma clang diagnostic pop
-
-
 
 //DETERMINE CUP MAKE OR MISS
 //initalizing rand to calculate make or miss.
@@ -260,9 +272,6 @@ vector<string> split (const string &inputString, char delim) {
         cout<<"Network is not connected"<<endl;
     }
      */
-
-
-
 
 
 //    bool isConnected = false;

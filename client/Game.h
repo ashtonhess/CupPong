@@ -32,6 +32,7 @@ public:
     void printCupsHome();
     void printCupsAway();
     void printGame();
+    void switchTurn();
 
 };
 

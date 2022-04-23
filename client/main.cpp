@@ -99,15 +99,14 @@ int main(int argc, char*argv[]) {
                             's'=115=83
                             'z'=122=90
                              */
-                            string smsg = "THROW "+to_string(game.player)+" "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
+                            string smsg = "THROW "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
                             network.sendMsg(smsg);
-
                         }
                         if(gmsg=="INIT PLAYER2"){
                             game.player=2;
                             game.turn=false;
                             cout<<"> You are player 2. Please wait for the other player to toss."<<endl;
-                        }
+                        }//break and wait for new msg...
                         break;
                     case 3:
                         break;

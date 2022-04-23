@@ -29,7 +29,7 @@ void Game::printCupsAway() {
             cout << " ";
         }
         for (int j = 0; j < i; ++j) {
-            homeCups[(c-9)*-1].printCupAway(c);//Change this to printCupAway to change style of cup
+            homeCups[(c-9)*-1].printCupAway(c);
             c++;
         }
         cout << endl;
@@ -51,6 +51,14 @@ void Game::printCupsHome() {
         cout<<endl;
     }
 }
+void Game::switchTurn(){
+    if(turn){
+        turn=false;
+    }else{
+        turn=true;
+    }
+}
+
 
 //    for (int i = 0; i < 10; ++i) {
 //        if (cups[i].active==true){

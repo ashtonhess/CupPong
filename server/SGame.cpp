@@ -22,3 +22,5 @@ bool SGame::throwResult(int keyboardHeroResult){
         return false;
     }
 }
+
+

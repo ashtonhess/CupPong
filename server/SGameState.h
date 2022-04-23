@@ -7,14 +7,19 @@
 #include <iostream>
 using namespace std;
 #include <string>
+#include <map>
 
 class SGameState {
 public:
     bool p1Turn;
     bool homeCupsState[10];
     bool awayCupsState[10];
+    map<string, int> translateMap;
     string getHomeState();
     string getAwayState();
+    void switchTurn();
+    void genTranslateMap();
+    int translate(string str);
 };
 
 
