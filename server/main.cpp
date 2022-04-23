@@ -29,21 +29,21 @@ void *gameFunc(void*arg){
     //It is PLAYER1's turn first.
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock1, "INIT PLAYER1");
-    cout<<"sent: INIT PLAYER1"<<endl;
+    cout<<"> SENT: INIT PLAYER1"<<endl;
     //PLAYER2 is waiting to receive game state after player 1's toss.
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock2, "INIT PLAYER2");
-    cout<<"send: INIT PLAYER2"<<endl;
+    cout<<"> SENT: INIT PLAYER2"<<endl;
 
     bool playing=true;
     while(playing){
         string rmsg;
         if(game.p1Turn){
             rmsg=network.recvMsg(sock1);
-            cout<<"> rmsg sock "<<sock1<<": "<<rmsg<<endl;
+            cout<<"> RECEIVED msg from sock "<<sock1<<": "<<rmsg<<endl;
         }else{
             rmsg=network.recvMsg(sock2);
-            cout<<"> rmsg sock "<<sock2<<": "<<rmsg<<endl;
+            cout<<"> RECEIVED msg from sock "<<sock2<<": "<<rmsg<<endl;
         }
         if(rmsg!=""){
             vector<string> delimitVector;
@@ -77,7 +77,7 @@ void *gameFunc(void*arg){
                             int makeCupIndex;
                             //cout<<"translating: "<<delimitVector.at(1)<<endl;
                             makeCupIndex = game.translate(delimitVector.at(1));
-                            cout<<"MAKE CUP: "<<makeCupIndex<<endl;
+                            //cout<<"MAKE CUP: "<<makeCupIndex<<endl;
                             //cout<<"MAKE-throwResult TRUE."<<endl;
                             //Remove cup from table-set cup to false
                             if(game.p1Turn){
@@ -85,13 +85,15 @@ void *gameFunc(void*arg){
                             }else{
                                 game.awayCupsState[makeCupIndex]=false;
                             }
-                            cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
-                            cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
+                            //cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
+                            //cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
                             if(game.end()){
                                 cout<<"GAME IS OVER"<<endl;
                                 //end game here
                                 network.sendMsg(sock1, "END");
+                                cout<<"> SENT to "<<sock1<<": "<<"END"<<endl;
                                 network.sendMsg(sock2, "END");
+                                cout<<"> SENT to "<<sock2<<": "<<"END"<<endl;
                                 playing=false;
                             }else{
                                 //Send updated gamestate to both clients
@@ -100,7 +102,9 @@ void *gameFunc(void*arg){
                                 string sock2GameState="GAMESTATE "+game.getHomeState()+game.getAwayState();
                                 //cout<<"Msg:sock2: "<<sock2GameState<<endl;                  //.
                                 network.sendMsg(sock1, sock1GameState);
+                                cout<<"> SENT to "<<sock1<<": "<<sock1GameState<<endl;
                                 network.sendMsg(sock2, sock2GameState);
+                                cout<<"> SENT to "<<sock2<<": "<<sock2GameState<<endl;
                                 //TEST GAMESTATE STRINGS
                                 //"GAMESTATE 0 1 0 1 0 1 1 0 1 1. 1 0 1 1 0 1 1 0 1 1 "
                                 //"GAMESTATE 1 0 1 1 0 1 1 0 1 1. 0 1 0 1 0 1 1 0 1 1 "
@@ -111,7 +115,9 @@ void *gameFunc(void*arg){
                             string sock1GameState="GAMESTATE "+game.getAwayState()+game.getHomeState();
                             string sock2GameState="GAMESTATE "+game.getHomeState()+game.getAwayState();
                             network.sendMsg(sock1, sock1GameState);
+                            cout<<"> SENT to "<<sock1<<": "<<sock1GameState<<endl;
                             network.sendMsg(sock2, sock2GameState);
+                            cout<<"> SENT to "<<sock2<<": "<<sock2GameState<<endl;
                             //network.sendMsg();
                             //network.sendMsg();
                             game.switchTurn();
