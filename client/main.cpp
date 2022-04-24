@@ -118,7 +118,7 @@ int main(int argc, char*argv[]) {
                         break;
                     case 21:
                         if(delimitVector.at(0)=="GAMESTATE"){
-                            cout<<gmsg<<endl;
+                            //cout<<gmsg<<endl;
 
 //                            for (int i = 0; i < 22; ++i) {
 //                                cout<<"delimV: "<<i<<" "<<delimitVector.at(i)<<endl;
@@ -139,7 +139,7 @@ int main(int argc, char*argv[]) {
                                 //cout<<"homeCup: "<<game.homeCups[i].active;
                                 //cout<<"awayCup: "<<game.awayCups[i].active;
                             }
-                            cout<<"GAMESTATE UPDATED"<<endl;
+                            //cout<<"GAMESTATE UPDATED"<<endl;
                             game.switchTurn();
                             //game.printGame();
 
