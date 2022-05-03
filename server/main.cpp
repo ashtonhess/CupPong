@@ -87,14 +87,22 @@ void *gameFunc(void*arg){
                             }
                             //cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
                             //cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
-                            if(game.end()){
-                                cout<<"GAME IS OVER"<<endl;
+                            if(game.end()==1||game.end()==2){ //If the game is over and we have a winner
+                                cout<<"GAME between sock "<<sock1<<" and sock"<<sock2<<" IS OVER"<<endl;
                                 //end game here
-                                network.sendMsg(sock1, "END");
-                                cout<<"> SENT to "<<sock1<<": "<<"END"<<endl;
-                                network.sendMsg(sock2, "END");
-                                cout<<"> SENT to "<<sock2<<": "<<"END"<<endl;
-                                playing=false;
+                                if (game.end()==1){
+                                    network.sendMsg(sock1, "ENDWIN");
+                                    cout<<"> SENT to "<<sock1<<": "<<"ENDWIN"<<endl;
+                                    network.sendMsg(sock2, "ENDLOSS");
+                                    cout<<"> SENT to "<<sock2<<": "<<"ENDLOSS"<<endl;
+                                    playing=false;
+                                }else if(game.end()==2){
+                                    network.sendMsg(sock1, "ENDLOSS");
+                                    cout<<"> SENT to "<<sock1<<": "<<"ENDLOSS"<<endl;
+                                    network.sendMsg(sock2, "ENDWIN");
+                                    cout<<"> SENT to "<<sock2<<": "<<"ENDWIN"<<endl;
+                                    playing=false;
+                                }
                             }else{
                                 //Send updated gamestate to both clients
                                 string sock1GameState="GAMESTATE "+game.getAwayState()+game.getHomeState();

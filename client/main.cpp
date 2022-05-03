@@ -66,8 +66,13 @@ int main(int argc, char*argv[]) {
                 delimitVector = split(gmsg,' ');
                 switch(delimitVector.size()){
                     case 1:
-                        if(gmsg=="END"){
-                            cout<<"The game is over!"<<endl<<endl<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                        if(gmsg=="ENDWIN"){
+                            cout<<"The game is over!"<<endl<<endl<<"You are the winner! :)"<<endl<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                            sleep(10);
+                            playing=false;
+                            connected=false;
+                        }else if(gmsg=="ENDLOSS"){
+                            cout<<"The game is over!"<<endl<<endl<<"You lost! :("<<endl<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
                             sleep(10);
                             playing=false;
                             connected=false;
@@ -178,8 +183,6 @@ int main(int argc, char*argv[]) {
                                 game.printGame();
                                 cout<<"Wait for the other player to toss!"<<endl;
                             }
-
-
                         }
                         break;
                     default:
@@ -191,10 +194,7 @@ int main(int argc, char*argv[]) {
                 connected=false;
             }
         }
-
-
     }
-
     return 0;
 }
 

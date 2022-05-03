@@ -4,18 +4,40 @@
 
 #include "SGameState.h"
 
-bool SGameState::end(){
-    //checks all cups in both home and away. If any cup is true, game is not over.
+int SGameState::end(){
+
+    bool homeCupsEnd = true;
     for (int i = 0; i < 9; ++i) {
         if(homeCupsState[i]){
-            return false;
-        }
-        if(awayCupsState[i]){
-            return false;
+            homeCupsEnd = false;
         }
     }
+    bool awayCupsEnd = true;
+    for (int i = 0; i < 9; ++i) {
+        if (awayCupsState[i]){
+            awayCupsEnd = false;
+        }
+    }
+    if(homeCupsEnd){
+        //if no home cups, then away team wins.
+        return 1;
+    }
+    if(awayCupsEnd){
+        //if no away cups, then home team wins.
+        return 2;
+    }
+    return 0;
+    //checks all cups in both home and away. If any cup is true, game is not over.
+//    for (int i = 0; i < 9; ++i) {
+//        if(homeCupsState[i]){
+//            return false;
+//        }
+//        if(awayCupsState[i]){
+//            return false;
+//        }
+//    }
     //if no cups are true, game is over.
-    return true;
+  //  return true;
 }
 
 string SGameState::getHomeState(){

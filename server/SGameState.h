@@ -19,7 +19,7 @@ public:
     string getAwayState();
     void switchTurn();
     void genTranslateMap();
-    bool end();
+    int end();
     int translate(string str);
 
 };
