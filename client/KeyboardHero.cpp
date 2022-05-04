@@ -131,7 +131,21 @@ int KeyboardHero::playKeyboardHero(){
                 startKeyListenTime=chrono::system_clock::now();
                 bool killPressed=false;
                 while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - startKeyListenTime).count()<250 && !killPressed) {
+                    // int c;
+                   // while ((c = getchar()) != '\n' && c != EOF) { }
                     //Listen for keys, only here.
+                    //fflush(stdin);
+
+
+//                Using '#include <termios.h>' for this. Clears the input buffer. Fixes bug where user could just spam
+//                  the keys and the game would just keep scanning inputs from past keypresses. Big W.
+                int stdin_copy = dup(STDIN_FILENO);
+                /* remove garbage from stdin */
+                tcdrain(stdin_copy);
+                tcflush(stdin_copy, TCIFLUSH);
+                close(stdin_copy);
+
+
                     int key = keypress();
                     //std::cout << (char)key << std::endl;
                     //std::cout << key << std::endl;
@@ -188,10 +202,12 @@ void KeyboardHero::printScoreLine(string scoreMsg, int currentScore){
 }
 
 int KeyboardHero::keypress() {
+    //while ((getchar()) != '\n');
     system ("/bin/stty raw");
     int c;
     system("/bin/stty -echo");
     c = getc(stdin);
+    //while ((getc(stdin)) != '\n');
     system("/bin/stty echo");
     system ("/bin/stty cooked");
     return c;

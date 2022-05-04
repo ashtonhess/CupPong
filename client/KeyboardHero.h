@@ -13,8 +13,10 @@ using namespace std;
 #include <ctime>
 #include <chrono>
 #include <thread>
+#include <termios.h>
 
-#define GAMESPEED 150
+
+#define GAMESPEED 100
 
 class KeyboardHero {
 private:
