@@ -197,7 +197,8 @@ int main(int argc, char*argv[]) {
     }
     return 0;
 }
-
+//This function splits a string up by a specified delimiter and returns a vector containing
+//each piece of the string that was split.
 vector<string> split (const string &inputString, char delim) {
     stringstream stringStream (inputString);
     string piece;

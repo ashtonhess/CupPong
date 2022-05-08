@@ -16,6 +16,8 @@
 #pragma ide diagnostic ignored "EndlessLoop"
 vector<string> split (const string &inputString, char delim);
 
+/*This function runs the game between two players. Each time two sockets connect to the server, a new thread will
+start running this function. */
 void *gameFunc(void*arg){
     cout<<"Game func"<<endl;
     cout<<"first sock: "<<((pair<int,int>*)arg)->first<<endl;
@@ -197,6 +199,7 @@ void *connectListener(void*arg){
         }else{
             threadV.push_back(threadPtr);
         }
+        //Resetting connection counter so a new set of players can connect.
         connections=0;
     }
     pthread_exit(NULL);
@@ -211,9 +214,9 @@ int main(int argc, char*argv[]){
 //    singler->getFile().readUsers();
 
     vector<pthread_t> threads;
+    // Creating and starting ConnectListener thread
     pthread_t t1;
     int res;
-    //ConnectLister Thread
     /*This thread will run all the time. It dynamically creates game threads to run a game between two users.
     ConnectListener and the game threads all run concurrently so new users can connect while other users are
     playing. */
@@ -226,7 +229,8 @@ int main(int argc, char*argv[]){
 
     return 0;
 }
-
+//This function splits a string up by a specified delimiter and returns a vector containing
+//each piece of the string that was split.
 vector<string> split (const string &inputString, char delim) {
     stringstream stringStream (inputString);
     string piece;

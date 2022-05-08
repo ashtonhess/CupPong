@@ -4,8 +4,6 @@
 
 #include "Network.h"
 
-
-
 bool Network::connect(){
 
     //This function resolves the hostname into an ip address. So, instead of using a hardcoded IP,
