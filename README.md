@@ -4,17 +4,23 @@ Multiplayer, Command Line Cup Pong.
 C++ Project. 
 
 Created by Ashton Hess.
+# Quickstart
+1. Download the latest CupPong.zip from releases
+2. Unzip to desired directory
+3. Run the executable
 
+Note: 
+1. On MacOS, you may need to open System Preferences -> Security & Privacy to allow the executable to run.
+2. This program makes use of pthreads and sockets. Ensure your system OS is UNIX based. Not tested on Windows.
 # Client
 All you need to play the game is a runnable client program and an internet connection. The client program will automatically connect to the central server hosted at CupPong.HessDevelopments.com. Matchmaking will be handled automatically and the server will insert you in a game against another connected player.
-## Quickstart
+## Setup from Source Code:
 ### Required Software
 1. apt & apt-get package managers
 2. git
 3. make
 4. C++ compiler (g++)
 
-### Setup from Source Code:
 Run the following commands through terminal in your desired directory:
 ```
 sudo apt update
