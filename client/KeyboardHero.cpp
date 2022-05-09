@@ -16,7 +16,7 @@ int KeyboardHero::playKeyboardHero(){
     //Clock is not exact because of while loop execution time.
     //Runs game for 12 seconds... Through testing i found this to be a good time for a max score of 9(ish) if perfectly played.
     //Having max score of 9 is really good->if you play perfectly you have a 90% chance to make cup. Should never be 100% for realism...
-    while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now()-start).count()/1000<12){
+    while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now()-start).count()/1000<8){
         //myBool=false;
         //cout<<endl<<endl<<chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - start).count()/1000<<endl<<endl;
         randNum2 = (rand() % 4 + 1);//generates a random number from 1-4
@@ -139,11 +139,11 @@ int KeyboardHero::playKeyboardHero(){
 
 //                Using '#include <termios.h>' for this. Clears the input buffer. Fixes bug where user could just spam
 //                  the keys and the game would just keep scanning inputs from past keypresses. Big W.
-                int stdin_copy = dup(STDIN_FILENO);
-                /* remove garbage from stdin */
-                tcdrain(stdin_copy);
-                tcflush(stdin_copy, TCIFLUSH);
-                close(stdin_copy);
+                    int stdin_copy = dup(STDIN_FILENO);
+                    /* remove garbage from stdin */
+                    tcdrain(stdin_copy);
+                    tcflush(stdin_copy, TCIFLUSH);
+                    close(stdin_copy);
 
 
                     int key = keypress();

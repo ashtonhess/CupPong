@@ -28,9 +28,6 @@ vector<string> split (const string &inputString, char delim);
 
 //CLIENT
 int main(int argc, char*argv[]) {
-//    KeyboardHero* kh = new KeyboardHero;
-//    int score=kh->play();
-//    cout<<"Score: "<<score<<endl;
     printWelcome();
     Network network = Network();
     bool connected=false;
@@ -96,22 +93,12 @@ int main(int argc, char*argv[]) {
                             int keyboardHeroResult;
                             keyboardHeroResult=game.playKeyboardHero();
                             //cupInput keys
-                            /* cupInput keys:
-                            '1'=49
-                            '2'=50
-                            '3'=51
-                            '4'=52
+                            /* cupInput keys: '1'=49, '2'=50, '3'=51, '4'=52
                                 ' '=lowercase=uppercase
-                            'q'=113=81
-                            'w'=119=87
-                            'e'=101=69
-                            'a'=97=65
-                            's'=115=83
-                            'z'=122=90
-                             */
+                                'q'=113=81, 'w'=119=87, 'e'=101=69, 'a'=97=65, 's'=115=83, 'z'=122=90
+                            */
                             string smsg = "THROW "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
                             network.sendMsg(smsg);
-                            //game.switchTurn();
                         }
                         if(gmsg=="INIT PLAYER2"){
                             game.player=2;
@@ -122,13 +109,8 @@ int main(int argc, char*argv[]) {
                         break;
                     case 21:
                         if(delimitVector.at(0)=="GAMESTATE"){
-                            //cout<<gmsg<<endl;
-
-//                            for (int i = 0; i < 22; ++i) {
-//                                cout<<"delimV: "<<i<<" "<<delimitVector.at(i)<<endl;
-//                            }
+                            //looping through the GAMESTATE msg received to update game state on client side.
                             for (int i = 0; i < 10; ++i) {
-
                                 bool home=true;
                                 if(delimitVector.at(i+1)=="0"){
                                     home=false;
@@ -139,14 +121,10 @@ int main(int argc, char*argv[]) {
                                 }
                                 game.homeCups[(i-9)*-1].active=home;
                                 game.awayCups[(i-9)*-1].active=away;
-                                //(i-9)*-1
-                                //cout<<"homeCup: "<<game.homeCups[i].active;
-                                //cout<<"awayCup: "<<game.awayCups[i].active;
+                                //(i-9)*-1      Offset for setting correct cups.
                             }
-                            //cout<<"GAMESTATE UPDATED"<<endl;
+                            //switch turn after receiving GAMESTATE.
                             game.switchTurn();
-                            //game.printGame();
-
                             if(game.turn){
                                 cout<<">It is your turn."<<endl;
                                 game.printGame();
@@ -163,19 +141,10 @@ int main(int argc, char*argv[]) {
                                 int keyboardHeroResult;
                                 keyboardHeroResult=game.playKeyboardHero();
                                 //cupInput keys
-                                /* cupInput keys:
-                                '1'=49
-                                '2'=50
-                                '3'=51
-                                '4'=52
+                                /* cupInput keys: '1'=49, '2'=50, '3'=51, '4'=52
                                     ' '=lowercase=uppercase
-                                'q'=113=81
-                                'w'=119=87
-                                'e'=101=69
-                                'a'=97=65
-                                's'=115=83
-                                'z'=122=90
-                                 */
+                                    'q'=113=81, 'w'=119=87, 'e'=101=69, 'a'=97=65, 's'=115=83, 'z'=122=90
+                                */
                                 string smsg = "THROW "+to_string(cupInput)+" "+to_string(keyboardHeroResult);
                                 network.sendMsg(smsg);
                             }else{
