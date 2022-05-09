@@ -16,7 +16,6 @@ using namespace std;
 #include <chrono>
 #include <thread>
 
-//#define GAMESPEED 150
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"

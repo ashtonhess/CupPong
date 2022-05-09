@@ -24,10 +24,8 @@ void *gameFunc(void*arg){
     cout<<"second sock: "<<((pair<int,int>*)arg)->second<<endl;
     int sock1=((pair<int,int>*)arg)->first;
     int sock2=((pair<int,int>*)arg)->second;
-
     Network network=Network();
     SGame game=SGame();
-
     //It is PLAYER1's turn first.
     network.sendMsg(sock1, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock1, "INIT PLAYER1");
@@ -36,7 +34,6 @@ void *gameFunc(void*arg){
     network.sendMsg(sock2, "You have successfully joined a game.\nWelcome to Cup Pong!\n");
     network.sendMsg(sock2, "INIT PLAYER2");
     cout<<"> SENT: INIT PLAYER2"<<endl;
-
     bool playing=true;
     while(playing){
         string rmsg;
@@ -59,20 +56,11 @@ void *gameFunc(void*arg){
                     //Accepts in format 'THROW (cupInput) (keyboardHeroResult)'
                     if(delimitVector.at(0)=="THROW"){
                         //cupInput keys
-                        /* cupInput keys:
-                            '1'=49
-                            '2'=50
-                            '3'=51
-                            '4'=52
-                                ' '=lowercase=uppercase
-                            'q'=113=81
-                            'w'=119=87
-                            'e'=101=69
-                            'a'=97=65
-                            's'=115=83
-                            'z'=122=90
-                             */
-                        //determine make/miss.
+                        /* cupInput keys: '1'=49, '2'=50, '3'=51, '4'=52
+                            ' '=lowercase=uppercase
+                            'q'=113=81, 'w'=119=87, 'e'=101=69, 'a'=97=65, 's'=115=83, 'z'=122=90
+                        */
+                        //determine make/miss using probability from client
                         bool throwResult;
                         throwResult=game.throwResult(stoi(delimitVector.at(2)));
                         if(throwResult){
@@ -106,7 +94,7 @@ void *gameFunc(void*arg){
                                     playing=false;
                                 }
                             }else{
-                                //Send updated gamestate to both clients
+                                //Send updated gamestate to both clients, this tells clients what cups are still live or not
                                 string sock1GameState="GAMESTATE "+game.getAwayState()+game.getHomeState();
                                 //cout<<"Msg:sock1: "<<sock1GameState<<endl;
                                 string sock2GameState="GAMESTATE "+game.getHomeState()+game.getAwayState();
@@ -132,7 +120,6 @@ void *gameFunc(void*arg){
                             //network.sendMsg();
                             game.switchTurn();
                         }
-
                         cout<<"> PROCESSED msg: "<<rmsg<<endl;
                     }
                     break;
@@ -143,8 +130,6 @@ void *gameFunc(void*arg){
             playing=false;
         }
     }
-
-
     return NULL;
 }
 
