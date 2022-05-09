@@ -11,16 +11,13 @@ int KeyboardHero::playKeyboardHero(){
     string letter;
     int randNum2;
     chrono::time_point<chrono::system_clock> start;
-    //chrono::time_point<chrono::system_clock> end;
     start=chrono::system_clock::now();
     //Clock is not exact because of while loop execution time.
-    //Runs game for 12 seconds... Through testing i found this to be a good time for a max score of 9(ish) if perfectly played.
-    //Having max score of 9 is really good->if you play perfectly you have a 90% chance to make cup. Should never be 100% for realism...
+    //Runs game for 8 seconds... Through testing i found this to be a good time for a max score of 8(ish) if perfectly played.
+    //Having max score of 8 is really good->if you play perfectly you have a 80% chance to make cup. Should never be 100% for realism...
     while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now()-start).count()/1000<8){
-        //myBool=false;
-        //cout<<endl<<endl<<chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - start).count()/1000<<endl<<endl;
-        randNum2 = (rand() % 4 + 1);//generates a random number from 1-4
-        for (int i = 0; i < 9; ++i) {
+        randNum2 = (rand() % 4 + 1);//generates a random number from 1-4 to determine which key will fall next.
+        for (int i = 0; i < 9; ++i) { //this loop prints the falling keys.
             if (i == 0) {
                 system("clear");
                 printLetterLine(randNum2);
@@ -126,29 +123,24 @@ int KeyboardHero::playKeyboardHero(){
                 printLetterLine(randNum2);
                 cout<<endl;
                 printScoreLine(scoreMsg, score);
-
                 chrono::time_point<chrono::system_clock> startKeyListenTime;
                 startKeyListenTime=chrono::system_clock::now();
                 bool killPressed=false;
+                /*Adding a kill switch 'k' to kill listening for keys. This is needed because
+                                          when using stty raw ctrl+c will not terminate the program since the input
+                                          is not processed but just put straight through.
+                                          If you need to terminate while game is listening for key input, input 'k'
+                                          first, then use ctrl+c to terminate.*/
                 while(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - startKeyListenTime).count()<250 && !killPressed) {
-                    // int c;
-                   // while ((c = getchar()) != '\n' && c != EOF) { }
-                    //Listen for keys, only here.
-                    //fflush(stdin);
 
-
-//                Using '#include <termios.h>' for this. Clears the input buffer. Fixes bug where user could just spam
-//                  the keys and the game would just keep scanning inputs from past keypresses. Big W.
+                    /*Using '#include <termios.h>' for clearing the input buffer. Fixes bug where user could just spam
+                     * the keys and the game would just keep scanning inputs from past keypresses. Big W.*/
                     int stdin_copy = dup(STDIN_FILENO);
-                    /* remove garbage from stdin */
+                    /* remove garbage and old content from stdin */
                     tcdrain(stdin_copy);
                     tcflush(stdin_copy, TCIFLUSH);
                     close(stdin_copy);
-
-
                     int key = keypress();
-                    //std::cout << (char)key << std::endl;
-                    //std::cout << key << std::endl;
                     if((char)key=='k'){//setting 'k' as the kill switch.
                         killPressed=true;
                     }
@@ -156,26 +148,23 @@ int KeyboardHero::playKeyboardHero(){
                     //Conversion from int to char: w=119, a=97, s=115, d=100
                     if(((randNum2==1)&&(key==119))||((randNum2==2)&&(key==97))||((randNum2==3)&&(key==115))||((randNum2==4)&&(key==100))){
                         if(chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - startKeyListenTime).count()<250){
-                            //cout<<endl<<endl<<endl<<endl<<"CORRECT KEY PRESSED IN TIME"<<endl<<endl<<endl<<endl;
                             scoreMsg="Correct key pressed in time!\t+1 Score!";
                             score++;
                             killPressed=true;
                         }else{
                             scoreMsg="Did not enter '"+to_string((char)key)+"' in time! Speed it up!";
-                            //cout<<"Did not enter key within time limit"<<endl;
                         }
                     }else{
                         scoreMsg="Wrong key!";
-                        //cout<<endl<<endl<<endl<<endl<<"WRONG KEY PRESSED"<<endl<<endl<<endl<<endl;
                     }
                 }
-                //this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED+100));
                 system("clear");
             }
         }
     }
     return score;
 }
+//This function prints the line that contains the letter based on an input.
 void KeyboardHero::printLetterLine(int letter){
     switch(letter){
         case 1:
@@ -193,21 +182,19 @@ void KeyboardHero::printLetterLine(int letter){
             ;
     }
 }
+//This function prints empty lines when there is no key to place on the line.
 void KeyboardHero::printEmptyLine(){
     cout<<"|........................................................................................|"<<endl;
 }
+//This function prints the current score
 void KeyboardHero::printScoreLine(string scoreMsg, int currentScore){
     cout<<"\t\t\t\t\t\t\t\t"<<scoreMsg<<endl<<endl<<"\t\t\t\t\t\t\t\t"<<"Current score: "<<currentScore<<endl;
-
 }
-
 int KeyboardHero::keypress() {
-    //while ((getchar()) != '\n');
     system ("/bin/stty raw");
     int c;
     system("/bin/stty -echo");
     c = getc(stdin);
-    //while ((getc(stdin)) != '\n');
     system("/bin/stty echo");
     system ("/bin/stty cooked");
     return c;
@@ -215,6 +202,35 @@ int KeyboardHero::keypress() {
 
 
 
+
+
+
+//std::cout << (char)key << std::endl;
+//std::cout << key << std::endl;
+
+//cout<<endl<<endl<<endl<<endl<<"CORRECT KEY PRESSED IN TIME"<<endl<<endl<<endl<<endl;
+
+
+//cout<<"Did not enter key within time limit"<<endl;
+
+//cout<<endl<<endl<<endl<<endl<<"WRONG KEY PRESSED"<<endl<<endl<<endl<<endl;
+
+
+//while ((getc(stdin)) != '\n');
+
+//while ((getchar()) != '\n');
+
+//this_thread::sleep_for(std::chrono::milliseconds(GAMESPEED+100));
+
+
+// int c;
+// while ((c = getchar()) != '\n' && c != EOF) { }
+//Listen for keys, only here.
+//fflush(stdin);
+
+
+//myBool=false;
+//cout<<endl<<endl<<chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now() - start).count()/1000<<endl<<endl;
 
 //KEY LISTENER
 /*
