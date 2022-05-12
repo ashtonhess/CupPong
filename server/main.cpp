@@ -14,7 +14,99 @@
 // add -Wno-unknown-pragmas to Makefile args to ignore in compilation.
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
+/*This function splits a string up by a specified delimiter and returns a vector containing
+ * each piece of the string that was split.*/
 vector<string> split (const string &inputString, char delim);
+/*This function constantly listens for new connections. After two new players connect, it creates a new game thread
+ * to run the game between those two players.*/
+void *connectListener(void*arg);
+/*This function runs the game between two players. Each time two sockets connect to the server, a new thread will
+start running this function. */
+void *gameFunc(void*arg);
+
+//SERVER
+int main(int argc, char*argv[]){
+//    FileIO *f = new FileIO();
+//    f->setFilename("users.txt");
+//    Singleton::getInstance()->setFile(*f);
+//    Singleton*singler = Singleton::getInstance();
+//    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+//    singler->getFile().readUsers();
+
+    vector<pthread_t> threads;
+    // Creating and starting ConnectListener thread
+    pthread_t t1;
+    int res;
+    /*This thread will run all the time. It dynamically creates game threads to run a game between two users.
+    ConnectListener and the game threads all run concurrently so new users can connect while other users are
+    playing. */
+    res=pthread_create(&t1, NULL, &connectListener, NULL);
+    if (res!=0){
+        cout<<"> Error creating thread."<<endl;
+    }
+    pthread_exit(NULL);
+
+    return 0;
+}
+
+/*This function constantly listens for new connections. After two new players connect, it creates a new game thread
+ * to run the game between those two players.*/
+void *connectListener(void*arg){
+    bool boolV=true;
+    vector<pthread_t*> threadV;
+    int sock1;
+    int sock2;
+    while (true){
+        Network network = Network();
+        if(boolV){//if the server is not connected yet (first time calling this), connect to server...
+            if(network.connect()){
+                boolV=false;
+            }else{
+                cout<<"> Error connecting to network."<<endl;
+            }
+        }
+        int connections=0;
+        while(connections!=2){
+            //accept first connection, store in sock1
+            if(connections==0){
+                sock1=network.acceptConnection();
+                if(sock1==-1){
+                    cout<<"> Error accepting sock1."<<endl;
+                }else{
+                    cout<<"> sock1 accepted: "<<sock1<<endl;
+                    connections++;
+                }
+            }
+            //accept second connection, store in sock2
+            if(connections==1) {
+                sock2 = network.acceptConnection();
+                if(sock2==-1){
+                    cout<<"> Error accepting sock2"<<endl;
+                }else{
+                    cout<<"> sock2 accepted: "<<sock2<<endl;
+                    connections++;
+                }
+            }
+        }
+        cout<<"> Creating game with socks: "<<sock1<<" and "<<sock2<<"."<<endl;
+        //store both accepted socks in pair to pass to gameThread.
+        pair<int,int> *sockPair = (pair<int,int>*)malloc(sizeof(pair<int,int>*));
+        sockPair->first = sock1;
+        sockPair->second = sock2;
+        pthread_t *threadPtr = (pthread_t*)malloc(sizeof(pthread_t));
+        int res;
+        //create game thread with sock1 and sock2.
+        res=pthread_create(threadPtr, NULL, &gameFunc, (void*)sockPair);
+        if (res!=0){
+            cout<<"> Error creating thread."<<endl;
+        }else{
+            threadV.push_back(threadPtr);
+        }
+        //Resetting connection counter so a new set of players can connect.
+        connections=0;
+    }
+    pthread_exit(NULL);
+}
 
 /*This function runs the game between two players. Each time two sockets connect to the server, a new thread will
 start running this function. */
@@ -133,89 +225,8 @@ void *gameFunc(void*arg){
     return NULL;
 }
 
-void *connectListener(void*arg){
-    bool boolV=true;
-    vector<pthread_t*> threadV;
-    int sock1;
-    int sock2;
-    while (true){
-        Network network = Network();
-        if(boolV){//if the server is not connected yet (first time calling this), connect to server...
-            if(network.connect()){
-                boolV=false;
-            }else{
-                cout<<"> Error connecting to network."<<endl;
-            }
-        }
-        int connections=0;
-        while(connections!=2){
-            //accept first connection, store in sock1
-            if(connections==0){
-                sock1=network.acceptConnection();
-                if(sock1==-1){
-                    cout<<"> Error accepting sock1."<<endl;
-                }else{
-                    cout<<"> sock1 accepted: "<<sock1<<endl;
-                    connections++;
-                }
-            }
-            //accept second connection, store in sock2
-            if(connections==1) {
-                sock2 = network.acceptConnection();
-                if(sock2==-1){
-                    cout<<"> Error accepting sock2"<<endl;
-                }else{
-                    cout<<"> sock2 accepted: "<<sock2<<endl;
-                    connections++;
-                }
-            }
-        }
-        cout<<"> Creating game with socks: "<<sock1<<" and "<<sock2<<"."<<endl;
-        //store both accepted socks in pair to pass to gameThread.
-        pair<int,int> *sockPair = (pair<int,int>*)malloc(sizeof(pair<int,int>*));
-        sockPair->first = sock1;
-        sockPair->second = sock2;
-        pthread_t *threadPtr = (pthread_t*)malloc(sizeof(pthread_t));
-        int res;
-        //create game thread with sock1 and sock2.
-        res=pthread_create(threadPtr, NULL, &gameFunc, (void*)sockPair);
-        if (res!=0){
-            cout<<"> Error creating thread."<<endl;
-        }else{
-            threadV.push_back(threadPtr);
-        }
-        //Resetting connection counter so a new set of players can connect.
-        connections=0;
-    }
-    pthread_exit(NULL);
-}
-
-int main(int argc, char*argv[]){
-//    FileIO *f = new FileIO();
-//    f->setFilename("users.txt");
-//    Singleton::getInstance()->setFile(*f);
-//    Singleton*singler = Singleton::getInstance();
-//    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
-//    singler->getFile().readUsers();
-
-    vector<pthread_t> threads;
-    // Creating and starting ConnectListener thread
-    pthread_t t1;
-    int res;
-    /*This thread will run all the time. It dynamically creates game threads to run a game between two users.
-    ConnectListener and the game threads all run concurrently so new users can connect while other users are
-    playing. */
-    res=pthread_create(&t1, NULL, &connectListener, NULL);
-    if (res!=0){
-        cout<<"> Error creating thread."<<endl;
-    }
-    pthread_exit(NULL);
-
-
-    return 0;
-}
-//This function splits a string up by a specified delimiter and returns a vector containing
-//each piece of the string that was split.
+/*This function splits a string up by a specified delimiter and returns a vector containing
+  each piece of the string that was split.*/
 vector<string> split (const string &inputString, char delim) {
     stringstream stringStream (inputString);
     string piece;
