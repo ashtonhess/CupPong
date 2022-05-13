@@ -62,7 +62,69 @@ int main(int argc, char*argv[]) {
                 switch(delimitVector.size()){
                     case 1:
                         if(gmsg=="ENDWIN"){
-                            cout<<"The game is over!"<<endl<<endl<<"You are the winner! :)"<<endl<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                            cout<<"The game is over!"<<endl<<endl<<"You are the winner! :)"<<endl<<endl<<"Please save your win to the leaderboards!"<<endl;//"Reconnecting to a new game in 10 seconds!"<<endl;
+
+                            char userInputCmd[6]="";
+                            bool needsCmdInput=true;
+                            bool loggedIn=false;
+                            string userInputString;
+                            while(!loggedIn) {
+                                needsCmdInput = true;
+                                cout<<"Type 'login' if you already have an account or 'new' to create a new account and press enter."<<endl;
+                                while (needsCmdInput) {
+                                    cin.getline(userInputCmd, 6);
+                                    userInputString = userInputCmd;
+                                    if (userInputString == "login" || userInputString == "new") {
+                                        needsCmdInput = false;
+                                    } else {
+                                        cout<< "Type 'login' if you already have an account or 'new' to create a new account and press enter."<< endl;
+                                    }
+                                }
+                                if (userInputString == "login") {
+                                    char userInputUsername[24] = "";
+
+                                    cout << "Enter your username: " << endl;
+                                    cin.getline(userInputUsername, 24);
+                                    string userInputUsernameString;
+                                    userInputUsernameString = userInputUsername;
+                                    char userInputPassword[24] = "";
+                                    cout << "Enter your password: " << endl;
+                                    cin.getline(userInputPassword, 24);
+                                    string userInputPasswordString;
+                                    userInputPasswordString = userInputPassword;
+                                    string smsg = "LOGIN " + userInputUsernameString + " " + userInputPasswordString;
+                                    network.sendMsg(smsg);
+                                    string rmsg=network.recvMsg();
+                                    if(rmsg=="SUCCESS"){
+                                        loggedIn=true;
+                                        cout<<"Login success. Your win has been recorded!"<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                                    }else{
+                                        cout<<"Login failed. Please try again."<<endl;
+                                    }
+                                }
+                                if (userInputString == "new") {
+                                    char userInputUsername[24] = "";
+                                    cout << "Enter a username: " << endl;
+                                    cin.getline(userInputUsername, 24);
+                                    string userInputUsernameString;
+                                    userInputUsernameString = userInputUsername;
+                                    char userInputPassword[24] = "";
+                                    cout << "Enter a password: " << endl;
+                                    cin.getline(userInputPassword, 24);
+                                    string userInputPasswordString;
+                                    userInputPasswordString = userInputPassword;
+                                    string smsg = "NEW " + userInputUsernameString + " " + userInputPasswordString;
+                                    network.sendMsg(smsg);
+                                    string rmsg=network.recvMsg();
+                                    if(rmsg=="SUCCESS"){
+                                        loggedIn=true;
+                                        cout<<"New account creation success. Your win has been recorded!"<<endl<<"Reconnecting to a new game in 10 seconds!"<<endl;
+                                    }else{
+                                        cout<<"Failed to create account. Please try again."<<endl;
+                                    }
+                                }
+                            }
+
                             sleep(10);
                             playing=false;
                             connected=false;

@@ -14,12 +14,14 @@ private:
     Singleton(){};
     FileIO file;
 public:
-    static Singleton *getInstance();
+
     Singleton(Singleton const& ) = delete; // copy constructor;
     Singleton& operator=(Singleton const&) = delete; // copy assignment
     Singleton(Singleton &&) = delete; // move constructor
     Singleton& operator = (Singleton &&) = delete; // move assignment
     ~Singleton(); //Deconstructor
+
+    static Singleton *getInstance();
 
     //FileIO ops
     FileIO getFile();

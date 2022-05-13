@@ -17,12 +17,20 @@ void FileIO::setFilename(string filename){
 }
 void FileIO::addUserToFile(User user){
     string userString;
-    userString="("+user.getUsername()+","+" "+user.getPassword()+")";
+    userString="("+user.getUsername()+","+" "+user.getPassword()+","+" "+to_string(user.getWins())+")";
     ofstream outFile;
     outFile.open(filename_, std::ios_base::app);
-    outFile<<endl<<userString;
+    outFile<<userString<<endl;
 }
-
+void FileIO::writeAllUsersToFile(vector<User>allUsersVec){
+    ofstream outFile;
+    outFile.open(filename_, ios_base::trunc);
+    for(auto user: allUsersVec){
+        string userString;
+        userString="("+user.getUsername()+","+" "+user.getPassword()+","+" "+to_string(user.getWins())+")";
+        outFile<<userString<<endl;
+    }
+}
 vector<User> FileIO::readUsers(){
     vector<User> errorVector;
     std::ifstream ifs;
@@ -44,10 +52,15 @@ vector<User> FileIO::readUsers(){
             string username;
             getline(ss, username, ',');
             string password;
-            getline(ss, password, ')');
-            //cout<<"userID: "<<userID<<endl;
-            //cout<<"password: "<<password<<endl;
-            User *newUser = new User(username, password);
+            getline(ss, password, ',');
+            string winsString;
+            getline(ss, winsString, ')');
+            int winsInt;
+            winsInt=stoi(winsString);
+            cout<<"userID: "<<username<<endl;
+            cout<<"password: "<<password<<endl;
+            cout<<"wins: "<<winsInt<<endl;
+            User *newUser = new User(username, password, winsInt);
             returnVector.push_back(*newUser);
         }
         return returnVector;

@@ -45,9 +45,10 @@ int Network::acceptConnection() {
         return currentSocket;
     }
 }
+//return 0 for user does not exist; return 1 for login success; return 2 for wrong password.
 int Network::login(string username, string password){
     vector<User> allUsersVec;
-    allUsersVec=FileIO().readUsers();
+    allUsersVec=Singleton::getInstance()->getFile().readUsers();
     for (auto it = begin (allUsersVec); it != end (allUsersVec); ++it) {
         if(it->getUsername()==username&&it->getPassword()==password){
             //cout<<it->getUserID()<<" login."<<endl;//---------------------------------------------------------------NEEDED--------------------------------------------------------------------------
@@ -62,7 +63,7 @@ int Network::newUser(string username, string password){
     if (login(username, password)==1 || login(username,password)==2){
         return 0;
     }else{
-        User*newUser = new User(username, password);
+        User*newUser = new User(username, password, 1);
         Singleton::getInstance()->getFile().addUserToFile(*newUser);
 
         return 1;

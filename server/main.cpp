@@ -24,14 +24,27 @@ void *connectListener(void*arg);
 start running this function. */
 void *gameFunc(void*arg);
 
+pthread_mutex_t mtx;
+
 //SERVER
 int main(int argc, char*argv[]){
-//    FileIO *f = new FileIO();
-//    f->setFilename("users.txt");
-//    Singleton::getInstance()->setFile(*f);
-//    Singleton*singler = Singleton::getInstance();
-//    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
-//    singler->getFile().readUsers();
+    //initalize FileIO.
+    FileIO *f = new FileIO();
+    //set file name.
+    f->setFilename("users.txt");
+    //Initialize Singleton with file.
+    Singleton::getInstance()->setFile(*f);
+
+    //initialize mutex
+    if(pthread_mutex_init(&mtx, NULL) != 0) {
+        std::cerr<< "Error initializing writer lock\n";
+    }
+
+    //initialize Users vector.
+    //Singleton::getInstance()->getFile().readUsers();
+    //Singleton*singler = Singleton::getInstance();
+    //cout<<"Filename: " <<singler->getFile().getFilename()<<endl;
+    //singler->getFile().readUsers();
 
     vector<pthread_t> threads;
     // Creating and starting ConnectListener thread
@@ -169,20 +182,121 @@ void *gameFunc(void*arg){
                             }
                             //cout<<"New home state: "<<endl<<game.getHomeState()<<endl;
                             //cout<<"New away state: "<<endl<<game.getAwayState()<<endl;
-                            if(game.end()==1||game.end()==2){ //If the game is over and we have a winner
+                            //uncomment true for quick testing.
+                            if(/*true){*/game.end()==1||game.end()==2){ //If the game is over and we have a winner
                                 cout<<"GAME between sock "<<sock1<<" and sock"<<sock2<<" IS OVER"<<endl;
                                 //end game here
-                                if (game.end()==1){
+                                //uncomment true for quick testing.
+                                if (/*true){*/game.end()==1){
                                     network.sendMsg(sock1, "ENDWIN");
                                     cout<<"> SENT to "<<sock1<<": "<<"ENDWIN"<<endl;
                                     network.sendMsg(sock2, "ENDLOSS");
                                     cout<<"> SENT to "<<sock2<<": "<<"ENDLOSS"<<endl;
+                                    bool loggedIn=false;
+                                    while(!loggedIn){
+                                        string saveMsg=network.recvMsg(sock1);
+                                        vector<string> delimitVector;
+                                        delimitVector = split(saveMsg,' ');
+                                        if(delimitVector.at(0)=="LOGIN"){
+                                            //critical section. Though we are just reading to login, this ensures
+                                            //the file is not currently being written to while trying to read for login.
+                                            pthread_mutex_lock(&mtx);
+                                            //return 0 for user does not exist; return 1 for login success; return 2 for wrong password.
+                                            int loginResult=network.login(delimitVector.at(1), delimitVector.at(2));
+                                            pthread_mutex_unlock(&mtx);
+                                            if(loginResult==1){
+                                                //critical section. Reading and writing back to file.
+                                                pthread_mutex_lock(&mtx);
+                                                //increment user's wins value in file.
+                                                vector<User> currentAllUserVec=Singleton::getInstance()->getFile().readUsers();
+                                                //loop through all current users that are in the file.
+                                                //Using auto& because we need this by reference, not value.
+                                                //This is to actually update the value within the user object that is
+                                                //in the vector.
+                                                for(auto& user: currentAllUserVec){
+                                                    if(user.getUsername()==delimitVector.at(1)){
+                                                        //increment user w matching username's wins value by 1.
+                                                        user.setWins(user.getWins()+1);
+                                                    }
+                                                }
+                                                //write this new, updated vector back to the file.
+                                                Singleton::getInstance()->getFile().writeAllUsersToFile(currentAllUserVec);
+                                                pthread_mutex_unlock(&mtx);
+                                                network.sendMsg(sock1, "SUCCESS");
+                                                loggedIn=true;
+                                            }else{
+                                                network.sendMsg(sock1, "FAILED");
+                                            }
+                                        }
+                                        if(delimitVector.at(0)=="NEW"){
+                                            //critical section. writing a new user to the file.
+                                            pthread_mutex_lock(&mtx);
+                                            int newUserResult = network.newUser(delimitVector.at(1), delimitVector.at(2));
+                                            pthread_mutex_unlock(&mtx);
+                                            if(newUserResult==1){
+                                                network.sendMsg(sock1, "SUCCESS");
+                                                loggedIn=true;
+                                            }else{
+                                                network.sendMsg(sock1, "FAILED");
+                                            }
+                                        }
+                                    }
+
                                     playing=false;
                                 }else if(game.end()==2){
                                     network.sendMsg(sock1, "ENDLOSS");
                                     cout<<"> SENT to "<<sock1<<": "<<"ENDLOSS"<<endl;
                                     network.sendMsg(sock2, "ENDWIN");
                                     cout<<"> SENT to "<<sock2<<": "<<"ENDWIN"<<endl;
+                                    bool loggedIn = false;
+                                    while(!loggedIn){
+                                        string saveMsg=network.recvMsg(sock2);
+                                        vector<string> delimitVector;
+                                        delimitVector = split(saveMsg,' ');
+                                        if(delimitVector.at(0)=="LOGIN"){
+                                            //critical section. Though we are just reading to login, this ensures
+                                            //the file is not currently being written to while trying to read for login.
+                                            pthread_mutex_lock(&mtx);
+                                            //return 0 for user does not exist; return 1 for login success; return 2 for wrong password.
+                                            int loginResult=network.login(delimitVector.at(1), delimitVector.at(2));
+                                            pthread_mutex_unlock(&mtx);
+                                            if(loginResult==1){
+                                                //critical section. Reading and writing back to file.
+                                                pthread_mutex_lock(&mtx);
+                                                //increment user's wins value in file.
+                                                vector<User> currentAllUserVec=Singleton::getInstance()->getFile().readUsers();
+                                                //loop through all current users that are in the file.
+                                                //Using auto& because we need this by reference, not value.
+                                                //This is to actually update the value within the user object that is
+                                                //in the vector.
+                                                for(auto& user: currentAllUserVec){
+                                                    if(user.getUsername()==delimitVector.at(1)){
+                                                        //increment user w matching username's wins value by 1.
+                                                        user.setWins(user.getWins()+1);
+                                                    }
+                                                }
+                                                //write this new, updated vector back to the file.
+                                                Singleton::getInstance()->getFile().writeAllUsersToFile(currentAllUserVec);
+                                                pthread_mutex_unlock(&mtx);
+                                                network.sendMsg(sock2, "SUCCESS");
+                                                loggedIn=true;
+                                            }else{
+                                                network.sendMsg(sock2, "FAILED");
+                                            }
+                                        }
+                                        if(delimitVector.at(0)=="NEW"){
+                                            //critical section. writing a new user to the file.
+                                            pthread_mutex_lock(&mtx);
+                                            int newUserResult = network.newUser(delimitVector.at(1), delimitVector.at(2));
+                                            pthread_mutex_unlock(&mtx);
+                                            if(newUserResult==1){
+                                                network.sendMsg(sock2, "SUCCESS");
+                                                loggedIn=true;
+                                            }else{
+                                                network.sendMsg(sock2, "FAILED");
+                                            }
+                                        }
+                                    }
                                     playing=false;
                                 }
                             }else{

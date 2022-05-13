@@ -25,7 +25,7 @@ public:
     FileIO(string filename);
     string getFilename();
     void setFilename(string filename);
-
+    void writeAllUsersToFile(vector<User>allUsersVec);
     void addUserToFile(User user);
     vector<User> readUsers();
 

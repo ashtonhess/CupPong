@@ -12,16 +12,20 @@ class User {
 private:
     string username_;
     string password_;
+    int wins_;
 public:
     User(){}
-    User(string username, string password){
+    User(string username, string password, int wins){
         username_=username;
         password_=password;
+        wins_=wins;
     }
     void setUsername(string username);
     void setPassword(string password);
+    void setWins(int wins);
     string getUsername();
     string getPassword();
+    int getWins();
 
 };
 
