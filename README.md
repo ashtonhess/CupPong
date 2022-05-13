@@ -70,7 +70,14 @@ make
 ```
 
 ## Abstract
-For my project I am going to implement the game of Cup Pong to be played on the command line. I plan on using sockets to enable two players to face each other in a game. To determine the probability of making a cup, the player will play a short ‘Dance Dance Revolution’ inspired keyboard game with the WASD keys. This game will favor those strong in the art of finger-dancing. There will be two programs: a client and server. The server will be the backbone of the multiplayer implementation. Clients will connect to the server and be able to play against each other. The server will track and store each player’s win/loss record. The server will be hosted on Dell Poweredge that will always be available for players to connect to. Matchmaking will be handled by the server automatically.
+For my project I am going to implement the game of Cup Pong to be played on the command line. I plan on using sockets to enable two players to face each other in a game. To determine the probability of making a cup, the player will play a short ‘Dance Dance Revolution’ inspired keyboard game with the WASD keys. This game will favor those strong in the art of finger-dancing. There will be two programs: a client and server. The server will be the backbone of the multiplayer implementation. Clients will connect to the server and be able to play against each other. The server will track and store each player’s number of wins. The server will be hosted on Dell Poweredge that will always be available for players to connect to. Matchmaking will be handled by the server automatically.
 
+## Features
+- Multithreaded using pthreads enabling server to handle multiple games at once.
+- Singleton design pattern for saving usernames, passwords, and win counts to the server.
+- Pthread mutex for FileIO reading and writing critical sections.
+- Web sockets to communicate over the internet.
+- Server hosted at CupPong.HessDevelopments.com.
+- Dynamic DNS for reliable connection to server.
 
 Created by Ashton Hess.
