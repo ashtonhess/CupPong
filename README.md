@@ -36,6 +36,14 @@ cd client
 make
 ./client
 ```
+## Client Tests:
+Run the following commands in the client directory:
+1. cd clientTests
+2. mkdir build
+3. cd build
+4. cmake ..
+5. make
+6. ./clientTests
 
 # Server
 ## Hardware and OS
