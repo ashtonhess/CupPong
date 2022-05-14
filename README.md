@@ -28,6 +28,7 @@ sudo apt upgrade
 sudo apt install git 
 sudo apt install make
 sudo apt-get install g++
+sudo apt install cmake (For GTests)
 
 git clone https://github.com/ashtonhess/CupPong
 
@@ -68,6 +69,7 @@ sudo apt upgrade
 sudo apt install git
 sudo apt install make
 sudo apt-get install g++
+sudo apt install cmake (For GTests)
 
 git clone https://github.com/ashtonhess/CupPong
 
